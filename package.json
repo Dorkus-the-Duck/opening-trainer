@@ -14,7 +14,7 @@
     "release": "node build.mjs && electron-builder --win --publish always"
   },
   "keywords": [],
-  "author": "",
+  "author": "Dorkus-the-Duck",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
@@ -66,9 +66,14 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "OWNER",
-        "repo": "opening-trainer"
+        "owner": "Dorkus-the-Duck",
+        "repo": "opening-trainer",
+        "releaseType": "release"
       }
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dorkus-the-Duck/opening-trainer.git"
   }
 }
