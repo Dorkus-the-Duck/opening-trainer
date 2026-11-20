@@ -1,0 +1,479 @@
+{
+  "version": 1,
+  "updated": "2026-10-31",
+  "openings": [
+    {
+      "id": "caro-kann",
+      "name": "Caro-Kann Defence",
+      "eco": "B10–B19",
+      "moves": "1.e4 c6",
+      "blurb": "A rock-solid answer to 1.e4. Black builds a strong pawn on d5 and develops the light-squared bishop before closing the centre.",
+      "overview": [
+        "The Caro-Kann is Black's attempt to get a French-style centre (pawns on d5 and e6) without the French's classic problem, the c8-bishop shut in behind its own pawns. The price is a slightly slower development, because ...c6 develops nothing and takes c6 away from the b8-knight.",
+        "Structurally, Black almost always ends up with a pawn on d5 or none at all after ...dxe4. Black's pawn structure is usually healthier than White's, and many endgames favour Black. White normally gets more space and a lead in development, and has to use them before Black catches up.",
+        "Three families of lines: (1) White pushes e5 (Advance) and gains space. (2) White keeps the tension or lets Black take on e4 (Classical, Karpov, Two Knights, Fantasy). (3) White exchanges on d5, either quietly (Exchange) or aggressively with c4 (Panov–Botvinnik, which gives an isolated queen's pawn)."
+      ],
+      "plans": {
+        "w": "Use your lead in space and development before Black catches up. Against ...Bf5 setups, gain time on the bishop (Ng3, h4–h5). In the Advance, keep the d4/e5 chain stable and play on the kingside or with c4. In IQP positions (Panov), aim your pieces at the black king and look for the d4–d5 break.",
+        "b": "Get the light-squared bishop out before ...e6. Then finish development calmly and strike at the centre with ...c5 (sometimes ...e5). Trade pieces when you are cramped. Most simplified positions favour you thanks to your better structure. Never play ...h6 or ...Nf6 on autopilot: Ng5–e6 and e5 tricks are real."
+      },
+      "variations": [
+        {
+          "id": "ck-advance",
+          "name": "Advance Variation – Short System",
+          "summary": "White pushes 3.e5 to gain space; Black develops the bishop to f5, then attacks the base of White's chain with ...c5 and expands on the queenside.",
+          "plans": {
+            "w": "Keep d4 firmly protected (Be3, c3), castle short, then use the extra space: f4-f5 or g4 ideas on the kingside, or c4 to open the queenside before Black locks it.",
+            "b": "Bishop out first (...Bf5), then ...e6 and ...c5 hitting d4. Trade on d4 and develop the knights to e7 and c6 (f6 is off-limits with a pawn on e5), aiming at the weakened e5-pawn. Against White's fast c4, look to trade queens: Black's structure is the healthier one in an endgame."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["c6", "Prepares ...d5 so that if White ever plays exd5, Black recaptures with the c-pawn and keeps a pawn in the centre. Compare the French (1...e6): there the c8-bishop gets locked in behind e6. In the Caro-Kann it gets out first. The cost is time: c6 develops nothing and takes the c6-square from the b8-knight."],
+            ["d4", "Takes the full centre while Black spends a move on c6. White now has to decide how to handle the coming attack on e4."],
+            ["d5", "The point of 1...c6: hit e4 right away. White has three main ways to answer: push past (e5), defend or let it be taken (Nc3/Nd2), or exchange (exd5)."],
+            ["e5", "Gains space and takes f6 away from Black's knight. The d4–e5 chain points at the kingside. Its base, d4, will become the target of ...c5. Unlike the Advance French, Black's bishop can still get out in front of the chain."],
+            ["Bf5", "Develops the \"good\" bishop before ...e6 shuts it in. This is the whole reason to play the Caro-Kann instead of the French."],
+            ["Nf3", "The Short System: calm development. White castles first and decides on the pawn breaks later. The knight supports both d4 and e5."],
+            ["e6", "Opens the f8-bishop and reinforces d5. Black now has a French-like structure, but with the light bishop already outside the chain."],
+            ["Be2", "Modest but useful: prepares castling and avoids Bd3, where Black would happily trade bishops with ...Bxd3. White wants to keep pieces on the board to make use of the extra space."],
+            ["c5", "The thematic break, hitting d4, the base of the chain. Spending a second move on the c-pawn (c6–c5) is fine because White's set-up is slow."],
+            ["Be3", "Reinforces d4 so that White isn't forced to give up the centre with dxc5."],
+            ["cxd4", "The main line: release the tension at once. Black trades the c-pawn for the d-pawn, so the e5-pawn loses its natural support."],
+            ["Nxd4", "Recaptures with the knight, which is centralised and eyes the f5-bishop."],
+            ["Ne7", "f6 is controlled by e5, so the king's knight goes to e7, where it can recapture on f5 if White plays Nxf5. Black's other knight will follow with ...Nbc6 to chase the d4-knight."],
+            ["c4", "The sharp, principled move: White hits d5 at once, before Black finishes development, and opens lines while Black's king is still in the centre."],
+            ["Nbc6", "Develops with a threat: the d4-knight is attacked, and ...Nxe5 is in the air because e5 has lost its pawn support."],
+            ["Qa4", "Pins the c6-knight against the king, so ...Nxd4 and ...Nxe5 are not yet possible, and adds pressure along the a4–e8 diagonal."],
+            ["a6", "Prepares ...b5 to hit the queen and break the pin on c6. Black is not yet castled, so getting out of the pin matters."],
+            ["Nc3", "Develops and adds a second attacker to d5. White is ahead in development, which is the price Black pays for the lost time with ...c6–c5."],
+            ["dxc4", "Grabs the c4-pawn. Black is a pawn up for now and the d5-square is free for a knight, but the d-file is open and Black's king is still in the centre."],
+            ["O-O-O", "Instead of winning the pawn back at once (Bxc4 can come later), White castles long and puts the rook straight onto the open d-file, aiming at d8 while Black's king is still uncastled."],
+            ["Qa5", "Offers the queen trade. Without queens, White's attacking chances vanish and Black's extra c4-pawn and solid structure count for more. After 12.Nxf5 Nxf5 13.Qxa5 Nxa5 the endgame is roughly level."]
+          ]
+        },
+        {
+          "id": "ck-classical",
+          "name": "Classical Variation (4...Bf5)",
+          "summary": "Black takes on e4 and develops the bishop with tempo. White chases it with h4–h5, gains kingside space and usually castles long.",
+          "plans": {
+            "w": "Use h4–h5 to gain space, trade off Black's good bishop with Bd3, castle long, and then push with Ne4, c4 and Kb1. The h5 pawn cramps Black's kingside for the rest of the game, but it can also become a target in an endgame.",
+            "b": "Develop solidly with ...Nd7, ...Ngf6, ...e6 and ...Be7, then play the ...c5 break (sometimes ...Qc7 and ...O-O-O). Be happy with trades: the endgame, with White's h5 pawn overextended, is often pleasant for Black."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["c6", "Prepares ...d5 so that if White ever plays exd5, Black recaptures with the c-pawn and keeps a pawn in the centre. Compare the French (1...e6): there the c8-bishop gets locked in behind e6. In the Caro-Kann it gets out first. The cost is time: c6 develops nothing and takes the c6-square from the b8-knight."],
+            ["d4", "Takes the full centre while Black spends a move on c6. White now has to decide how to handle the coming attack on e4."],
+            ["d5", "The point of 1...c6: hit e4 right away. White has three main ways to answer: push past (e5), defend or let it be taken (Nc3/Nd2), or exchange (exd5)."],
+            ["Nc3", "Defends e4 with a developing move and lets Black decide whether to take."],
+            ["dxe4", "Black gives up the centre pawn. Keeping the tension with ...Nf6 would allow e5. This is the main road of the Caro-Kann."],
+            ["Nxe4", "Recaptures and centralises the knight."],
+            ["Bf5", "Develops the light bishop and hits the e4-knight at the same time. This is the Classical Caro-Kann."],
+            ["Ng3", "Retreats with tempo: the bishop is attacked."],
+            ["Bg6", "Stays on the b1–h7 diagonal, the bishop's best diagonal."],
+            ["h4", "Threatens h5, trapping the bishop. White uses this to grab kingside space."],
+            ["h6", "Gives the bishop h7 to retreat to, so h5 can be met by ...Bh7."],
+            ["Nf3", "Develops and prepares Ne5, which would hit the g6-bishop."],
+            ["Nd7", "Stops Ne5 and prepares ...Ngf6 safely."],
+            ["h5", "Locks in a space advantage: the h5 pawn takes g6 away from Black for the rest of the game. Later on it can also become a weakness."],
+            ["Bh7", "Retreats but stays on the diagonal."],
+            ["Bd3", "Offers to trade Black's best minor piece."],
+            ["Bxd3", "Black accepts. White's queen recaptures and develops."],
+            ["Qxd3", "The queen is centralised and eyes the b1–h7 diagonal. Bd2 and O-O-O come next."],
+            ["e6", "Opens the f8-bishop and keeps d5 covered. A solid French-style shell."],
+            ["Bd2", "Prepares queenside castling and keeps options like Qe2, c4 or Ne4."],
+            ["Ngf6", "Develops. The knight covers e4 and d5."],
+            ["O-O-O", "Typical for this line: the kingside pawns have advanced, so the king goes long. Plans: Kb1, Ne4 to trade a defender, c4, or Qe2 followed by Ne5."],
+            ["Be7", "Finishes development. Next comes ...O-O or ...Qc7, and the ...c5 break, Black's main source of counterplay."]
+          ]
+        },
+        {
+          "id": "ck-karpov",
+          "name": "Karpov Variation (4...Nd7) with 5.Ng5",
+          "summary": "Black prepares ...Ngf6 so a trade on f6 never damages the pawns. White tries the aggressive 5.Ng5, eyeing e6 and f7.",
+          "plans": {
+            "w": "Be quick and direct: Bd3, N1f3 and Qe2 aim at the kingside. Watch for Ne6 or Nxe6 sacrifices whenever Black plays ...h6 or ...e6 carelessly.",
+            "b": "Develop in the right order: ...Ngf6, ...e6, ...Bd6, and only then ...h6. Afterwards solve the c8-bishop with ...b6 and ...Bb7, and break with ...c5."
+          },
+          "notes": "Famous trap: 7...h6?? 8.Nxe6! was Deep Blue vs Kasparov, game 6 (1997). The order 7...Bd6 and only later ...h6 avoids it.",
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["c6", "Prepares ...d5 so that if White ever plays exd5, Black recaptures with the c-pawn and keeps a pawn in the centre. Compare the French (1...e6): there the c8-bishop gets locked in behind e6. In the Caro-Kann it gets out first. The cost is time: c6 develops nothing and takes the c6-square from the b8-knight."],
+            ["d4", "Takes the full centre while Black spends a move on c6. White now has to decide how to handle the coming attack on e4."],
+            ["d5", "The point of 1...c6: hit e4 right away. White has three main ways to answer: push past (e5), defend or let it be taken (Nc3/Nd2), or exchange (exd5)."],
+            ["Nc3", "Defends e4 and lets Black decide whether to take."],
+            ["dxe4", "The main move; Black releases the tension."],
+            ["Nxe4", "Recaptures, centralising the knight."],
+            ["Nd7", "The Karpov Variation: prepares ...Ngf6, so that after Nxf6+ Black recaptures with a knight and the pawn structure stays healthy."],
+            ["Ng5", "An aggressive try: White avoids the knight trade and eyes f7 and e6."],
+            ["Ngf6", "Natural development. Don't play an early ...h6: Ne6 sacrifices are lurking."],
+            ["Bd3", "Develops and aims at h7."],
+            ["e6", "Solid, and it blocks the d3-bishop's ideas on f5. Now e6 is a potential sacrifice square, so be careful."],
+            ["N1f3", "Develops and supports the g5-knight and the centre."],
+            ["Bd6", "Develops first. 7...h6?? 8.Nxe6! is the famous Deep Blue–Kasparov disaster."],
+            ["Qe2", "Puts the queen behind e6 and prepares Ne4 or queenside castling."],
+            ["h6", "Now it's safe to kick the knight: with the bishop on d6 and the king able to castle, the sacrifices don't work."],
+            ["Ne4", "The knight comes back and offers a trade."],
+            ["Nxe4", "Black trades a pair of pieces to ease the slight lack of space."],
+            ["Qxe4", "The queen centralises and keeps the c8-bishop hemmed in."],
+            ["Qc7", "Connects the pieces and supports the plan of ...b6, ...Bb7 and ...c5."],
+            ["O-O", "White castles. The extra space is small, so White needs active play."],
+            ["b6", "Prepares ...Bb7 to solve the problem of the c8-bishop, and ...c5 to hit the centre."],
+            ["Qg4", "Hits g7. White wants to make castling short uncomfortable."],
+            ["Kf8", "Unusual but standard: g7 is protected and the king is safe enough. Black follows with ...Bb7 and ...c5. Later the h8-rook joins via ...h5 or ...Rg8."]
+          ]
+        },
+        {
+          "id": "ck-exchange",
+          "name": "Exchange Variation",
+          "summary": "A symmetrical Carlsbad-type structure. White aims pieces at the kingside; Black runs a minority attack with ...b5–b4.",
+          "plans": {
+            "w": "Keep Black's light bishop off f5 (Bd3), pressure b7 with Qb3, then use the half-open e-file and the e5 outpost (Ne5) for kingside play.",
+            "b": "Develop the bishop to g4 since f5 is covered, then play the minority attack: ...b5–b4 against White's c3 pawn, creating a weakness on the queenside."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["c6", "Prepares ...d5 so that if White ever plays exd5, Black recaptures with the c-pawn and keeps a pawn in the centre. Compare the French (1...e6): there the c8-bishop gets locked in behind e6. In the Caro-Kann it gets out first. The cost is time: c6 develops nothing and takes the c6-square from the b8-knight."],
+            ["d4", "Takes the full centre while Black spends a move on c6. White now has to decide how to handle the coming attack on e4."],
+            ["d5", "The point of 1...c6: hit e4 right away. White has three main ways to answer: push past (e5), defend or let it be taken (Nc3/Nd2), or exchange (exd5)."],
+            ["exd5", "The Exchange Variation releases the tension and creates a symmetrical structure. White has the extra move and the half-open e-file."],
+            ["cxd5", "Recapture. Black now has the half-open c-file."],
+            ["Bd3", "The best diagonal for the bishop. It also controls f5, keeping Black's light bishop off its natural square."],
+            ["Nc6", "Pressures d4 and prepares ...Bg4, since f5 is now covered."],
+            ["c3", "Solidifies d4. White's structure is a reversed Carlsbad (the Queen's Gambit Exchange structure)."],
+            ["Nf6", "Develops and controls e4."],
+            ["Bf4", "Develops the dark bishop outside the pawn chain, on the b8–h2 diagonal."],
+            ["Bg4", "Since f5 is covered, the bishop goes to g4. It eyes f3, where White's knight will defend d4."],
+            ["Qb3", "The key test: hits b7 and adds pressure on d5."],
+            ["Qd7", "Defends b7 calmly. 7...Na5 is the main alternative."],
+            ["Nd2", "Develops, keeping f3 for the other knight so that ...Bxf3 can be met by Nxf3."],
+            ["e6", "Opens the f8-bishop and finishes the solid centre."],
+            ["Ngf3", "Development. White intends O-O and Ne5."],
+            ["Bd6", "Challenges White's best minor piece on f4."],
+            ["Bxd6", "Trades. Retreating to g3 is also possible."],
+            ["Qxd6", "Recaptures. The queen is well placed on d6."],
+            ["O-O", "Castles."],
+            ["O-O", "Castles. Next comes the classic plan for this structure, the minority attack: ...Rab8, ...b5 and ...b4 against c3."]
+          ]
+        },
+        {
+          "id": "ck-panov",
+          "name": "Panov–Botvinnik Attack",
+          "summary": "White plays c4, accepting an isolated queen's pawn (IQP) in return for piece activity and attacking chances.",
+          "plans": {
+            "w": "Play with the IQP: pieces on active squares (Bd3, Re1, Ne5), attack the kingside, and look for the d4–d5 break to open lines. Avoid trades: each trade makes the IQP weaker.",
+            "b": "Blockade d5 with a piece, put pressure on d4 (...Nc6, ...Bf6, ...Qd6/...Rd8) and trade pieces. An endgame against the IQP is usually good for Black."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["c6", "Prepares ...d5 so that if White ever plays exd5, Black recaptures with the c-pawn and keeps a pawn in the centre. Compare the French (1...e6): there the c8-bishop gets locked in behind e6. In the Caro-Kann it gets out first. The cost is time: c6 develops nothing and takes the c6-square from the b8-knight."],
+            ["d4", "Takes the full centre while Black spends a move on c6. White now has to decide how to handle the coming attack on e4."],
+            ["d5", "The point of 1...c6: hit e4 right away. White has three main ways to answer: push past (e5), defend or let it be taken (Nc3/Nd2), or exchange (exd5)."],
+            ["exd5", "Releases the tension. White's next move makes this the Panov rather than the quiet Exchange."],
+            ["cxd5", "Recapture, keeping a pawn on d5."],
+            ["c4", "The Panov–Botvinnik Attack: White hits d5 and aims for open, active play, accepting an isolated d-pawn."],
+            ["Nf6", "Develops and supports d5."],
+            ["Nc3", "Piles up on d5."],
+            ["e6", "Supports d5 and opens the f8-bishop. The structure is the same as in many Queen's Gambit and Nimzo-Indian IQP positions."],
+            ["Nf3", "Develops and controls e5, the IQP's key outpost."],
+            ["Be7", "Modest and solid: prepares castling."],
+            ["cxd5", "Releases the tension. After ...Nxd5 the isolated pawn is fixed."],
+            ["Nxd5", "Black blockades the square in front of the isolated pawn, the golden rule against an IQP."],
+            ["Bd3", "Aims at h7. The IQP side attacks on the kingside."],
+            ["Nc6", "Attacks d4."],
+            ["O-O", "Castles."],
+            ["O-O", "Castles."],
+            ["Re1", "The rook supports the e5 outpost and a later d4–d5 break."],
+            ["Bf6", "A third attacker on d4, and it covers the kingside. Black is fully mobilised against the IQP."]
+          ]
+        },
+        {
+          "id": "ck-two-knights",
+          "name": "Two Knights Variation",
+          "summary": "White delays d4 with 2.Nc3 and 3.Nf3. Black pins and trades on f3, giving White the bishop pair but a solid, light-square-based position.",
+          "plans": {
+            "w": "Use the bishop pair and the active queen on f3. Castle long and storm with g4–g5 and h4, or open the centre with d4 and exd5 so the bishops get diagonals.",
+            "b": "With the light bishop traded, put pawns on light squares (...e6, ...d5, ...c6) and break with ...e5 or ...d4 to restrict White's bishops. Keep the position closed."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["c6", "Prepares ...d5 and a solid centre."],
+            ["Nc3", "The Two Knights move order: White keeps d-pawn options open (d3 or d4) and covers e4 with a piece."],
+            ["d5", "Challenges e4 anyway."],
+            ["Nf3", "Develops and keeps e4 defended. Taking on d5 now would just free Black's game."],
+            ["Bg4", "Pins the knight. Black is ready to give the bishop for the knight to weaken White's grip on e4 and d4."],
+            ["h3", "Asks the bishop to decide."],
+            ["Bxf3", "Trades bishop for knight. ...Bh5 g4 Bg6 is riskier."],
+            ["Qxf3", "White has the bishop pair and an active queen."],
+            ["e6", "Solid. Now that the light bishop is gone, Black puts pawns on light squares."],
+            ["d3", "Quietly supports e4 and keeps the bishop pair. White plans g3/Bg2 or Be2."],
+            ["Nf6", "Develops."],
+            ["Bd2", "Develops and keeps queenside castling as an option."],
+            ["Nbd7", "Develops and keeps the f6-knight supported."],
+            ["g4", "Aggressive: threatens g5 to kick the f6-knight, and grabs kingside space. With the bishop pair, White wants an open, dynamic game. (A quiet g3/Bg2 is playable but gives Black an easy life.)"],
+            ["h6", "Prepares to meet g5 with ...hxg5, so the knight can stay on f6."],
+            ["O-O-O", "Castles long. White's kingside pawns are already advancing, so the king is safer on the other wing, and the rook joins the d-file at once."],
+            ["Qb6", "Develops the queen toward White's king and eyes b2 and f2."],
+            ["h4", "Backs up g5 again: the pawn storm is on."],
+            ["O-O-O", "Black also castles long, away from White's pawn storm. Next comes ...dxe4 or ...e5 in the centre, keeping the position closed against White's bishops."]
+          ]
+        },
+        {
+          "id": "ck-fantasy",
+          "name": "Fantasy Variation (3.f3)",
+          "summary": "White supports e4 with the f-pawn. Black takes at once, 3...dxe4 4.fxe4, and strikes back in the centre with ...e5, then pins the f3-knight with ...Bg4.",
+          "plans": {
+            "w": "After fxe4 you have the full centre and a half-open f-file. Develop fast (Nf3, Bc4, O-O, c3), aim the bishop and rook at f7, and keep d4 solid so Black's ...e5 doesn't dissolve the centre for free.",
+            "b": "Take on e4 and hit back with ...e5 at once, before White consolidates. Pin the knight with ...Bg4, develop with ...Nd7, ...Ngf6, ...Bd6 and castle. Watch f7: White's Bc4 and the half-open f-file both aim at it."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["c6", "Prepares ...d5 so that if White ever plays exd5, Black recaptures with the c-pawn and keeps a pawn in the centre. Compare the French (1...e6): there the c8-bishop gets locked in behind e6. In the Caro-Kann it gets out first. The cost is time: c6 develops nothing and takes the c6-square from the b8-knight."],
+            ["d4", "Takes the full centre while Black spends a move on c6. White now has to decide how to handle the coming attack on e4."],
+            ["d5", "The point of 1...c6: hit e4 right away. White has three main ways to answer: push past (e5), defend or let it be taken (Nc3/Nd2), or exchange (exd5)."],
+            ["f3", "The Fantasy: if ...dxe4 then fxe4 and White has a broad centre. The drawbacks: it weakens the g1–a7 diagonal and e3, and takes f3 away from the knight for now."],
+            ["dxe4", "The main line: take straight away and challenge White to justify the pawn structure. (3...e6 is the main alternative, keeping the tension.)"],
+            ["fxe4", "Recaptures towards the centre. White now has pawns on d4 and e4 and a half-open f-file, but the kingside is a little loose."],
+            ["e5", "The key point of 3...dxe4: hit the centre immediately, before White can play Nf3, Bd3 and O-O in peace. It also threatens ...Qh4+, exploiting the weakened e1–h4 diagonal. If dxe5, ...Qxd1+ trades queens and Black is fine."],
+            ["Nf3", "Develops, defends d4 and attacks e5. The knight is back on its best square after all."],
+            ["Bg4", "Pins the knight to the queen, so it can't take on e5 yet, and adds pressure on d4."],
+            ["Bc4", "The aggressive square: the bishop aims at f7, the weak spot made weaker by the half-open f-file."],
+            ["Nd7", "Defends e5, which is attacked by d4 and the f3-knight and had no defender. The natural 6...Nf6? fails to 7.Bxf7+! Kxf7 8.Nxe5+, forking the king and the g4-bishop."],
+            ["O-O", "Castles, which also puts the rook on the half-open f-file pointing at f7."],
+            ["Ngf6", "Develops and attacks e4. Black is close to finishing development."],
+            ["c3", "Supports d4 so the centre holds, and threatens Qb3, hitting f7 and b7 at the same time."],
+            ["Bd6", "Develops, defends e5 and prepares to castle."],
+            ["Be3", "Develops and supports d4 again. White's centre is now fully protected."],
+            ["O-O", "Black is safe and fully developed. The tension in the centre remains."],
+            ["Nbd2", "The last minor piece comes out and supports e4, which the f6-knight is attacking."],
+            ["Qe7", "Connects the rooks and adds a defender to e5. ...Rae8 will follow."],
+            ["Qe1", "A typical regrouping: the queen heads for h4 or g3 to join a kingside attack, and lifts the pin on the f3-knight."],
+            ["Rae8", "Black brings the last rook to the centre. A balanced middlegame: White has the freer game, Black a rock-solid e5-pawn."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "italian",
+      "name": "Italian Game",
+      "eco": "C50–C59",
+      "moves": "1.e4 e5 2.Nf3 Nc6 3.Bc4",
+      "blurb": "Classical development aimed at f7. Ranges from slow manoeuvring (Giuoco Pianissimo) to sharp gambits (Evans, Fried Liver).",
+      "overview": [
+        "After 1.e4 e5 2.Nf3 Nc6 3.Bc4, White develops the bishop to its most aggressive diagonal, aiming at f7. Black's main choices are 3...Bc5 (Giuoco Piano: copy the idea and aim at f2) and 3...Nf6 (Two Knights Defence: counter-attack e4).",
+        "Modern top-level play favours a slow plan for White: c3, d3, O-O, Re1, h3, and the knight manoeuvre Nbd2–f1–g3. It resembles the Ruy Lopez, but the bishop sits on c4. The older, sharper approach is c3 + d4 at once (or the Evans Gambit with b4), and it leads to open, tactical positions.",
+        "Key ideas to remember: the f7/f2 weaknesses; the d4 break for White; ...d5 as Black's freeing break; the a2/b3 retreat for White's bishop (and a7/b6 for Black's); and keeping ...Ng4 and Bg5 pins under control with h3 and ...h6."
+      ],
+      "plans": {
+        "w": "Slow lines: c3, d3, O-O, Re1, h3, Nbd2–f1–g3, then choose between d4 in the centre, a4–b4 on the queenside, or a kingside attack. Sharp lines: c3 + d4 or b4 to open the centre before Black has castled.",
+        "b": "Mirror White's development with ...d6, ...a6, ...Ba7, ...h6 and ...Re8. Challenge the c4-bishop with ...Be6 or ...Na5, and look for the ...d5 break whenever White's pieces aren't ready to punish it."
+      },
+      "variations": [
+        {
+          "id": "it-pianissimo",
+          "name": "Giuoco Pianissimo (c3 + d3)",
+          "summary": "The modern main line. Both sides develop slowly and manoeuvre; White's knight travels d2–f1–g3.",
+          "plans": {
+            "w": "h3 to stop ...Bg4 and ...Ng4, Re1, then Nbd2–f1–g3. Later choose between d4, b4 with a queenside push, or Nh4–f5 and a kingside attack.",
+            "b": "...a6 and ...Ba7 to keep the bishop safe, ...h6 to stop Bg5, then ...Be6 to trade off White's Italian bishop. ...d5 is the freeing break when it works."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["e5", "Claims an equal share of the centre and opens lines for Black's own queen and f8-bishop."],
+            ["Nf3", "Develops with a threat: e5 is attacked."],
+            ["Nc6", "The most natural defence: it protects e5 while developing toward the centre."],
+            ["Bc4", "The Italian bishop aims at f7, which only the king defends. It doesn't pin anything the way the Ruy Lopez's Bb5 does. White simply develops fast and keeps the centre flexible for c3 and d4 (or d3)."],
+            ["Bc5", "The Giuoco Piano: mirrors White's idea and aims at f2."],
+            ["c3", "Prepares d4 and gives White's bishop a retreat on b3 or c2 later."],
+            ["Nf6", "Develops and attacks e4."],
+            ["d3", "The Pianissimo (\"very quiet\"): defends e4 and postpones d4. The fight is long-term manoeuvring rather than early tactics."],
+            ["d6", "Supports e5 and opens the c8-bishop."],
+            ["O-O", "Castles."],
+            ["a6", "Prepares ...Ba7 so the bishop can't be hit by b4 or d4 with tempo. It also rules out Bb5."],
+            ["a4", "Gains queenside space and stops ...b5 from kicking the bishop."],
+            ["Ba7", "Pre-emptive retreat to the safest square while staying on the g1–a7 diagonal."],
+            ["Re1", "Supports e4 and clears f1 for the knight manoeuvre."],
+            ["O-O", "Castles."],
+            ["h3", "Stops ...Bg4 and ...Ng4 for good."],
+            ["h6", "Same idea for Black: no Bg5 and no Ng5."],
+            ["Nbd2", "Starts the classic route d2–f1–g3."],
+            ["Re8", "Supports e5 and prepares ...Be6 or ...d5."],
+            ["Nf1", "On the way to g3, and it opens the c1-bishop."],
+            ["Be6", "Challenges White's best attacking piece."],
+            ["Bxe6", "Trades. If White allowed ...Bxc4, dxc4 would weaken d4."],
+            ["Rxe6", "Recapturing with the rook keeps the kingside pawns intact. The rook can later swing along the 6th rank. The position is balanced with plenty of play."]
+          ]
+        },
+        {
+          "id": "it-classical",
+          "name": "Giuoco Piano – c3 + d4 Main Line",
+          "summary": "The old main line: White builds an ideal centre with c3 and d4, and Black breaks it with ...d5.",
+          "plans": {
+            "w": "Big centre, quick development, and pressure on b7 and d5 with Qb3. With pawns on c3 and d4, the e-file and kingside attack matter.",
+            "b": "Trade on d2 to relieve the pressure, then strike with ...d5 at once. Put a knight on d5 and support it with ...c6 and ...Nce7. Black's position is solid."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["e5", "Claims an equal share of the centre and opens lines for Black's own queen and f8-bishop."],
+            ["Nf3", "Develops with a threat: e5 is attacked."],
+            ["Nc6", "The most natural defence: it protects e5 while developing toward the centre."],
+            ["Bc4", "The Italian bishop aims at f7, which only the king defends. It doesn't pin anything the way the Ruy Lopez's Bb5 does. White simply develops fast and keeps the centre flexible for c3 and d4 (or d3)."],
+            ["Bc5", "The Giuoco Piano: aims at f2."],
+            ["c3", "Prepares d4 to build an ideal centre."],
+            ["Nf6", "Counter-attacks e4 and develops."],
+            ["d4", "Builds the centre immediately, hitting e5 and the c5-bishop's diagonal."],
+            ["exd4", "Black must take. ...Bb6 dxe5 just loses ground."],
+            ["cxd4", "White has two central pawns side by side."],
+            ["Bb4+", "The bishop can't stay on c5, so it leaves with check, which forces White to commit."],
+            ["Bd2", "The calm block. 7.Nc3 is the sharp Møller Attack gambit."],
+            ["Bxd2+", "Trades pieces to ease the pressure."],
+            ["Nbxd2", "Recaptures with a knight to keep control of e4."],
+            ["d5", "The key freeing break: hit the centre before White plays e5 or d5."],
+            ["exd5", "Otherwise e4 falls."],
+            ["Nxd5", "The knight centralises. White is left with an isolated d-pawn."],
+            ["Qb3", "Hits d5 and b7 at once."],
+            ["Nce7", "Supports d5 with a second knight. From e7 it can later go to f5."],
+            ["O-O", "Castles."],
+            ["O-O", "Castles."],
+            ["Rfe1", "Rook to the open e-file, pinning against e7."],
+            ["c6", "Cements d5. Black has a sound, slightly passive position. White has more activity in return for the IQP."]
+          ]
+        },
+        {
+          "id": "it-evans",
+          "name": "Evans Gambit",
+          "summary": "White gives up the b-pawn to gain time for c3 and d4, aiming for a fast attack against the uncastled king.",
+          "plans": {
+            "w": "Play fast: c3, d4, O-O, and later Ba3 to stop Black from castling. Material doesn't matter if the black king is stuck in the centre.",
+            "b": "Accept, then give material back at the right moment (...d5) to finish development and get the king safe. Don't grab every pawn."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["e5", "Claims an equal share of the centre and opens lines for Black's own queen and f8-bishop."],
+            ["Nf3", "Develops with a threat: e5 is attacked."],
+            ["Nc6", "The most natural defence: it protects e5 while developing toward the centre."],
+            ["Bc4", "The Italian bishop aims at f7, which only the king defends. It doesn't pin anything the way the Ruy Lopez's Bb5 does. White simply develops fast and keeps the centre flexible for c3 and d4 (or d3)."],
+            ["Bc5", "Giuoco Piano."],
+            ["b4", "The Evans Gambit: gives up a pawn so that c3 and d4 come with gain of time on the bishop."],
+            ["Bxb4", "Accepts the gambit."],
+            ["c3", "Attacks the bishop and prepares d4."],
+            ["Ba5", "Keeps an eye on c3 and e1 from a5. This is the main line."],
+            ["d4", "The central blow: development and open lines come before material."],
+            ["exd4", "Black takes again, opening lines but staying solid."],
+            ["O-O", "Development first, in the spirit of the gambit."],
+            ["Nge7", "A sensible choice: the knight supports ...d5 and avoids the e5 kick that ...Nf6 would allow."],
+            ["cxd4", "Regains a pawn and builds a big centre."],
+            ["d5", "The freeing break: Black gives material back to activate the pieces."],
+            ["exd5", "Takes."],
+            ["Nxd5", "Recaptures and centralises."],
+            ["Ba3", "Takes f8 away from Black's king, so Black can't castle short. A typical Evans idea."],
+            ["Be6", "Develops, preparing ...Qd7 and queenside castling."],
+            ["Bb5", "Pins the c6-knight. White keeps the initiative, while Black is a pawn up with a decent position."]
+          ]
+        },
+        {
+          "id": "it-two-knights",
+          "name": "Two Knights Defence – 4.Ng5 d5 5.exd5 Na5",
+          "summary": "Black counter-attacks e4. White goes for f7 with Ng5, and Black gives up a pawn for rapid development.",
+          "plans": {
+            "w": "Keep the extra pawn and catch up in development. Be2 and Nf3 bring the pieces back, then d4 frees the game.",
+            "b": "Get compensation for the pawn: harass the knight and bishop with ...Na5, ...h6 and ...e4, develop fast, and use the open lines."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["e5", "Claims an equal share of the centre and opens lines for Black's own queen and f8-bishop."],
+            ["Nf3", "Develops with a threat: e5 is attacked."],
+            ["Nc6", "The most natural defence: it protects e5 while developing toward the centre."],
+            ["Bc4", "The Italian bishop aims at f7, which only the king defends. It doesn't pin anything the way the Ruy Lopez's Bb5 does. White simply develops fast and keeps the centre flexible for c3 and d4 (or d3)."],
+            ["Nf6", "The Two Knights Defence: Black counter-attacks e4 instead of developing the bishop first."],
+            ["Ng5", "Moves the same piece twice, but it creates a direct threat: Bxf7 or Nxf7."],
+            ["d5", "The only good defence: block the bishop's diagonal toward f7."],
+            ["exd5", "Takes."],
+            ["Na5", "Correct: hit the bishop instead of recapturing. 5...Nxd5?! allows the Fried Liver (Nxf7). Black gives a pawn for time."],
+            ["Bb5+", "Keeps the bishop active with check."],
+            ["c6", "Blocks with gain of time."],
+            ["dxc6", "Takes."],
+            ["bxc6", "Recaptures. Black is a pawn down but well ahead in development."],
+            ["Be2", "The bishop retreats to safety."],
+            ["h6", "Kicks the knight, gaining another tempo."],
+            ["Nf3", "The knight has to go back."],
+            ["e4", "Kicks the knight again."],
+            ["Ne5", "The best square, centralised."],
+            ["Bd6", "Develops and challenges the strong knight."],
+            ["d4", "Frees the c1-bishop and supports e5."],
+            ["exd3", "En passant: Black opens lines while White is undeveloped."],
+            ["Nxd3", "Recapture."],
+            ["Qc7", "Hits h2 and prepares to castle. Black has excellent compensation for the pawn."]
+          ]
+        },
+        {
+          "id": "it-fried-liver",
+          "name": "Fried Liver Attack (punishing 5...Nxd5)",
+          "sides": [
+            "w"
+          ],
+          "summary": "If Black recaptures 5...Nxd5, White sacrifices a knight on f7 and drags the black king into the centre.",
+          "plans": {
+            "w": "Sacrifice on f7, check with Qf3+ to force the king to e6, pile up on the pinned d5-knight, then castle and open the centre with d4 and Re1 while the king is stuck in the open. Don't allow ...Nxc2+ cheaply. (6.d4 is also very strong and objectively even better.)",
+            "b": "Avoid this line: answer 5.exd5 with 5...Na5!. As Black, use this line to learn why."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["e5", "Claims an equal share of the centre and opens lines for Black's own queen and f8-bishop."],
+            ["Nf3", "Develops with a threat: e5 is attacked."],
+            ["Nc6", "The most natural defence: it protects e5 while developing toward the centre."],
+            ["Bc4", "The Italian bishop aims at f7, which only the king defends. It doesn't pin anything the way the Ruy Lopez's Bb5 does. White simply develops fast and keeps the centre flexible for c3 and d4 (or d3)."],
+            ["Nf6", "Two Knights Defence."],
+            ["Ng5", "Attacks f7 a second time."],
+            ["d5", "Blocks the diagonal."],
+            ["exd5", "Takes."],
+            ["Nxd5", "A natural but dubious recapture: now f7 is under attack again and the d5-knight is loose."],
+            ["Nxf7", "The Fried Liver sacrifice: knight for pawn, drawing the king out."],
+            ["Kxf7", "Accepting is the critical test."],
+            ["Qf3+", "Check, and pressure on the pinned d5-knight."],
+            ["Ke6", "The only way to keep the knight. The king is now in the middle of the board."],
+            ["Nc3", "Piles up on d5 again, and it pins it to the king."],
+            ["Ncb4", "Defends d5 and threatens ...Nxc2+."],
+            ["O-O", "Castles, so ...Nxc2 no longer comes with check: grabbing the rook now leaves the d5-knight hanging and costs Black far too much time (9...Nxc2? 10.Bxd5+ is winning). The rook is also heading for e1, opposite the king. The old 9.a3?! Nxc2+ 10.Kd1 Nxa1 11.Nxd5 is refuted by 11...Qh4!."],
+            ["c6", "Supports the pinned d5-knight a second time, so White can't simply win it."],
+            ["d4", "Opens lines against the king on e6: e5 is attacked, the c1-bishop is freed, and the e-file starts to open."],
+            ["Qf6", "Offers a queen trade, Black's best way to take the sting out of the attack, and adds a defender to e5."],
+            ["Qd1", "Declines the trade. With queens on, the king in the centre stays a target, and the queen can swing back in via e2 or h5."],
+            ["Ke7", "The king tries to walk back towards safety."],
+            ["Re1", "The rook lands on the e-file, against e5 and the king on e7. White is a piece down for a pawn, but Black's king is stuck in the centre and Stockfish rates White clearly better."]
+          ]
+        },
+        {
+          "id": "it-two-knights-d3",
+          "name": "Two Knights Defence – Modern 4.d3",
+          "summary": "White avoids complications with 4.d3 and steers into a Ruy Lopez-like manoeuvring game.",
+          "plans": {
+            "w": "c3, Re1 and keep the bishop on the a4–c2 diagonals, then Nbd2–f1–g3 and d4 at the right moment, like a Closed Ruy Lopez.",
+            "b": "...Na5 to hit the Italian bishop, gain queenside space with ...a6, ...b5 and ...c5, and stay solid in the centre."
+          },
+          "moves": [
+            ["e4", "Grabs central space and opens lines for the queen and the f1-bishop."],
+            ["e5", "Claims an equal share of the centre and opens lines for Black's own queen and f8-bishop."],
+            ["Nf3", "Develops with a threat: e5 is attacked."],
+            ["Nc6", "The most natural defence: it protects e5 while developing toward the centre."],
+            ["Bc4", "The Italian bishop aims at f7, which only the king defends. It doesn't pin anything the way the Ruy Lopez's Bb5 does. White simply develops fast and keeps the centre flexible for c3 and d4 (or d3)."],
+            ["Nf6", "Two Knights Defence."],
+            ["d3", "Defends e4 and avoids the sharp lines. White plans a slow build-up."],
+            ["Be7", "Solid: develops and prepares castling."],
+            ["O-O", "Castles."],
+            ["O-O", "Castles."],
+            ["Re1", "Supports e4."],
+            ["d6", "Supports e5 and opens the c8-bishop."],
+            ["c3", "Prepares d4 and gives the bishop a retreat on c2."],
+            ["Na5", "Hits the Italian bishop. Black wants to trade it or push it back."],
+            ["Bb5", "Avoids the trade and gets in the way of Black's queenside."],
+            ["a6", "Kicks the bishop."],
+            ["Ba4", "Keeps the diagonal."],
+            ["b5", "Gains space with tempo."],
+            ["Bc2", "The bishop settles on c2, exactly like the Ruy Lopez."],
+            ["c5", "Grabs queenside space. It's a Closed Ruy Lopez structure: White prepares d4 or Nbd2–f1–g3, and Black expands on the queenside."]
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "opening-trainer",
+  "version": "1.0.0",
+  "description": "Chess opening trainer with spaced repetition and Stockfish",
+  "main": "main.cjs",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node build.mjs && electron .",
+    "dev": "node build.mjs --watch",
+    "validate": "node test/validate.mjs",
+    "validate:engine": "node test/validate.mjs --engine",
+    "theme": "node tools/gen-norse.mjs && electron tools/make-icon.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "electron": "^45.1.0",
+    "esbuild": "^0.28.2"
+  },
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "chessground": "^9.2.1",
+    "stockfish": "^19.0.1"
+  },
+  "allowScripts": {
+    "electron@45.1.0": true,
+    "esbuild@0.28.2": true
+  }
+}

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<defs><linearGradient id="tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d6e70"/><stop offset="1" stop-color="#2f3a3c"/></linearGradient></defs>
+<rect x="8" y="8" width="240" height="240" rx="48" fill="#120b06"/>
+<rect x="14" y="14" width="228" height="228" rx="43" fill="#b48a4c"/>
+<rect x="22" y="22" width="212" height="212" rx="36" fill="url(#tile)"/>
+<svg x="34" y="30" width="188" height="188" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<defs>
+  <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#fffaf0"/><stop offset=".45" stop-color="#efe2c4"/><stop offset="1" stop-color="#c4a97c"/></linearGradient>
+  <linearGradient id="d" x1="0" x2="1"><stop offset="0" stop-color="#efe2c4"/><stop offset="1" stop-color="#9a7f55"/></linearGradient>
+</defs>
+<g stroke="#3b2a17" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M75.5 4 L78.5 12 L73 12 Z" fill="#b08a4f"/>
+  <path d="M75.8 12 L72.5 50" stroke="#3b2a17" stroke-width="2.6"/>
+  <path d="M52 52 Q60 40 70 46 L72 72 L56 72 Z" fill="url(#g)"/>
+  <circle cx="62" cy="34" r="6" fill="url(#g)"/>
+  <path d="M55.5 34 Q56 22 62 14.5 Q68 22 68.5 34 Z" fill="#b08a4f"/>
+  <path d="M62 27 V38" stroke="#3b2a17" stroke-width="1.8"/>
+  <path d="M39.5 24 L43.5 11.5 L47.5 24 Z" fill="url(#g)"/>
+  <path d="M32 84 L35 68 Q36 60 32 56.5 L20 52.5 Q12.5 50.5 14.5 44 L27 32 Q32 23.5 41 22 Q47.5 20.5 51.5 26.5 Q57.5 34 58.5 48 L62.5 84 Z" fill="url(#g)"/>
+  <path d="M45.5 23.5 L50.5 29.5 L49 34 L54.5 38.5 L53 43 L57.5 48.5" fill="none" stroke="#6b5233" stroke-width="1.6"/>
+  <path d="M23.5 41.5 L35 47 L33.5 34" fill="none" stroke="#b08a4f" stroke-width="1.8"/>
+  <circle cx="31" cy="37.5" r="2.1" fill="#3b2a17" stroke="none"/>
+  <path d="M17.5 46.5 Q19.5 45 21 47.5 M15.5 50.5 L21.5 50.5" fill="none" stroke="#3b2a17" stroke-width="1.4"/>
+  <path d="M60.5 48 H78.5 V58 Q77.5 70 69.5 78.5 Q61.5 70 60.5 58 Z" fill="url(#d)"/>
+  <path d="M69.5 50.5 V75 M61.5 57 H77.5" stroke="#b08a4f" stroke-width="2.2"/>
+  <path d="M22 93 Q22 85 30 84 H70 Q78 85 78 93 Z" fill="url(#d)"/>
+  <path d="M28 88.5 H72" stroke="#6b5233" stroke-width="1.2" opacity=".6"/>
+</g></svg>
+</svg>
