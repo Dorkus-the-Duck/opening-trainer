@@ -1,7 +1,11 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, net } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
+const config = require('./app.config.json');
+
+// Same data folder whether running from source or installed (the installer's product name differs).
+app.setPath('userData', path.join(app.getPath('appData'), 'opening-trainer'));
 
 let win = null;
 const dataFile = () => path.join(app.getPath('userData'), 'chess-trainer-data.json');
@@ -22,6 +26,46 @@ ipcMain.handle('app:info', () => ({ version: app.getVersion(), packaged: app.isP
 ipcMain.handle('app:openExternal', (_e, url) => {
   if (/^(mailto:|https:\/\/)/.test(url)) return shell.openExternal(url);
 });
+
+// ---------- online updates ----------
+// Lines: the app downloads content/openings.json from the GitHub repo and uses it when its
+// version is newer than what it has, so fixed or new lines reach everyone without a reinstall.
+// App: installed copies update themselves from GitHub Releases (electron-updater).
+const repoOk = /^[\w.-]+\/[\w.-]+$/.test(config.githubRepo) && !config.githubRepo.startsWith('OWNER/');
+const packFile = () => path.join(app.getPath('userData'), 'lines-pack.json');
+const readCachedPack = () => { try { return JSON.parse(fs.readFileSync(packFile(), 'utf8')); } catch { return null; } };
+const versionLess = (a, b) => {
+  const [x, y] = [a, b].map((v) => v.split('.').map(Number));
+  for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) < (y[i] || 0);
+  return false;
+};
+
+ipcMain.handle('content:cached', () => readCachedPack());
+
+async function checkLineUpdates() {
+  if (!repoOk) return;
+  try {
+    const res = await net.fetch(`https://raw.githubusercontent.com/${config.githubRepo}/main/content/openings.json`, { cache: 'no-store' });
+    if (!res.ok) return;
+    const pack = await res.json();
+    if (typeof pack.version !== 'number' || !Array.isArray(pack.openings)) return;
+    if (pack.minAppVersion && versionLess(app.getVersion(), pack.minAppVersion)) return;
+    if (pack.version <= (readCachedPack()?.version || 0)) return;
+    const tmp = packFile() + '.tmp';
+    fs.writeFileSync(tmp, JSON.stringify(pack));
+    fs.renameSync(tmp, packFile());
+    toRenderer('content:updated', pack);
+  } catch (e) { console.error('[lines update]', e.message); }
+}
+
+function checkAppUpdates() {
+  if (!app.isPackaged || !repoOk) return;
+  const { autoUpdater } = require('electron-updater');
+  autoUpdater.on('update-downloaded', (info) => toRenderer('app:update-ready', { version: info.version }));
+  autoUpdater.on('error', (e) => console.error('[app update]', e.message));
+  autoUpdater.checkForUpdates().catch(() => {});
+  ipcMain.handle('app:restart-to-update', () => autoUpdater.quitAndInstall());
+}
 
 // ---------- line proposals (only when running from source) ----------
 // Proposed lines live in content/proposals/. The Proposals screen lets the owner play them
@@ -52,7 +96,8 @@ function toRenderer(channel, msg) {
 }
 
 function startEngine() {
-  const script = path.join(__dirname, 'node_modules', 'stockfish', 'bin', 'stockfish-19-single.js');
+  // In the installed app the engine files are unpacked next to app.asar so plain Node can read them.
+  const script = path.join(__dirname, 'node_modules', 'stockfish', 'bin', 'stockfish-19-single.js').replace('app.asar', 'app.asar.unpacked');
   engine = spawn(process.execPath, [script], {
     env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
     stdio: ['pipe', 'pipe', 'pipe'],
@@ -173,6 +218,8 @@ function createWindow() {
 app.whenReady().then(() => {
   startEngine();
   createWindow();
+  win.webContents.once('did-finish-load', () => { checkLineUpdates(); checkAppUpdates(); });
+  setInterval(checkLineUpdates, 6 * 60 * 60 * 1000);
 });
 
 app.on('window-all-closed', () => {

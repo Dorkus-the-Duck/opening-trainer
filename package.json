@@ -9,23 +9,66 @@
     "dev": "node build.mjs --watch",
     "validate": "node test/validate.mjs",
     "validate:engine": "node test/validate.mjs --engine",
-    "theme": "node tools/gen-norse.mjs && node tools/gen-sets.mjs && electron tools/make-icon.cjs"
+    "theme": "node tools/gen-norse.mjs && node tools/gen-sets.mjs && electron tools/make-icon.cjs",
+    "dist": "node build.mjs && electron-builder --win",
+    "release": "node build.mjs && electron-builder --win --publish always"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "chess.js": "^1.4.0",
+    "chessground": "^9.2.1",
     "electron": "^45.1.0",
+    "electron-builder": "^26.18.0",
     "esbuild": "^0.28.2"
   },
   "dependencies": {
-    "chess.js": "^1.4.0",
-    "chessground": "^9.2.1",
+    "electron-updater": "^6.8.11",
     "stockfish": "^19.0.1"
   },
   "allowScripts": {
     "electron@45.1.0": true,
     "esbuild@0.28.2": true
+  },
+  "build": {
+    "appId": "com.openingtrainer.app",
+    "productName": "Opening Trainer",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "app.config.json",
+      "package.json",
+      "src/index.html",
+      "dist/**",
+      "assets/icon.ico",
+      "assets/icon.png",
+      "!node_modules/stockfish/bin/!(stockfish-19-single.*)",
+      "!node_modules/stockfish/{src,examples,test}/**"
+    ],
+    "asarUnpack": [
+      "node_modules/stockfish/bin/stockfish-19-single.*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "shortcutName": "Opening Trainer"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "OWNER",
+        "repo": "opening-trainer"
+      }
+    ]
   }
 }

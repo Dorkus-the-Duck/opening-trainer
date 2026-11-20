@@ -5,6 +5,12 @@ contextBridge.exposeInMainWorld('api', {
   saveData: (data) => ipcRenderer.invoke('data:save', data),
   revealData: () => ipcRenderer.invoke('data:reveal'),
   appInfo: () => ipcRenderer.invoke('app:info'),
+  content: {
+    cached: () => ipcRenderer.invoke('content:cached'),
+    onUpdated: (cb) => ipcRenderer.on('content:updated', (_e, pack) => cb(pack)),
+  },
+  onUpdateReady: (cb) => ipcRenderer.on('app:update-ready', (_e, info) => cb(info)),
+  restartToUpdate: () => ipcRenderer.invoke('app:restart-to-update'),
   openExternal: (url) => ipcRenderer.invoke('app:openExternal', url),
   proposals: {
     list: () => ipcRenderer.invoke('proposals:list'),

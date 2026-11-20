@@ -5,7 +5,9 @@ import './themes/sets.css';
 import './styles.css';
 
 import { store } from './store.js';
-import { h, clear, fill, modal } from './ui.js';
+import { h, clear, fill, modal, toast } from './ui.js';
+import { content } from './content.js';
+import { invalidate } from './repertoire.js';
 import { dueCards } from './srs.js';
 import * as engine from './engine.js';
 import { homeView } from './views/home.js';
@@ -92,6 +94,18 @@ function stylePicker() {
 }
 
 setInterval(() => { if (currentView !== 'session') renderNav(); }, 60 * 1000);
+
+// Lines downloaded earlier (newer than the ones built into this version), and live updates.
+content.use(await window.api.content.cached());
+window.api.content.onUpdated((pack) => {
+  if (!content.use(pack)) return;
+  invalidate();
+  toast('New and corrected lines downloaded');
+  if (currentView === 'home') go('home');
+});
+window.api.onUpdateReady(({ version }) => modal('Update ready',
+  h('p', null, `Version ${version} of Opening Trainer has been downloaded. Restart now to use it, or it installs when you close the app.`),
+  [{ label: 'Later' }, { label: 'Restart now', primary: true, onClick: () => { window.api.restartToUpdate(); } }]));
 
 await store.load();
 applyTheme();

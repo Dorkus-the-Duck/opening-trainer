@@ -47,28 +47,46 @@ Each opening also has an **Overview & plans** page: pawn structures, plans for e
 
 **My Lines.** Edit or delete your custom lines. You can add them to Caro-Kann or Italian, or create a new opening. The data file holds all progress, notes, studies and custom lines (`%APPDATA%/opening-trainer/chess-trainer-data.json`); back it up by copying it.
 
-## Piece set
+**Feedback.** The ✉ Feedback button (and "Report a problem" during Learn/Drill) drafts an email to the address in `app.config.json`, with the app version, line and board position filled in.
 
-The default set is **Norse**, inspired by the 12th-century Lewis chessmen:
-- Ivory against red-stained ivory.
-- Seated kings with swords, queens with a hand to the cheek, mitred bishops with croziers, knights on small horses, shield-bearing warders as rooks, and runestones as pawns.
-- A bone-and-slate board in a knotwork frame.
+**First-run tour.** A short guided tour runs the first time the app opens; the **?** button replays it.
 
-Switch to the classic set with **Set** in the top bar. The pieces are drawn in `tools/gen-norse.mjs`; run `npm run theme` after editing it (add `--preview out.html` for a preview sheet).
+## Piece sets and boards
 
-## Adding built-in openings
+Pick them under **🎨 Style** in the top bar.
+- **Pieces:** Norse (Lewis chessmen: seated kings with swords, queens with a hand to the cheek, mitred bishops, knights on small horses, shield-warder rooks, runestone pawns), Classic, Minimal (flat geometric), and Shatranj (abstract medieval Islamic pieces).
+- **Boards:** Bone & slate (with a knotwork frame), Brown, Walnut & maple, Tournament green, Blue ice, Marble, Black & white.
 
-Edit `src/data/openings.js`. Each variation is a list of `[san, why]` pairs. Then run:
+The art is generated in `tools/gen-norse.mjs` and `tools/gen-sets.mjs`; run `npm run theme` after editing them (`node tools/gen-sets.mjs --preview out.html` writes a preview sheet).
+
+## Adding and fixing lines
+
+The built-in lines live in `content/openings.json` (one `[san, why]` pair per move). New or changed lines go through review first:
+
+1. Claude writes a proposal to `content/proposals/<name>.json` (the variation plus notes on how it was checked) and runs `node test/validate.mjs --proposals --engine`.
+2. In the app (run from source), the **Proposals** tab lists them. Play each one through: changed moves are marked, the engine evaluates every position. Then **Approve** (merged into `content/openings.json`, pack version bumped) or **Request changes** with a note, which is saved into the proposal file.
+3. Claude commits approved lines, and pushing to GitHub ships them to everyone (see below).
 
 ```
 npm run validate          # every move legal, every move explained
 npm run validate:engine   # also flags moves Stockfish thinks lose > 0.7 pawns (a few minutes)
 ```
 
+A variation can list ply indexes in `"intentional"` (e.g. the Fried Liver's deliberate 5...Nxd5) so the engine check skips them.
+
+## Sharing and updates
+
+- **Installer:** `npm run dist` builds `release/Opening Trainer Setup <version>.exe`. It isn't code-signed, so Windows shows "Windows protected your PC" the first time; click *More info → Run anyway*.
+- **Line updates:** installed apps download `content/openings.json` from the GitHub repo in `app.config.json` at startup (and every 6 hours) and switch to it when its `version` is newer. Fixing or adding lines only needs a push; no reinstall. A pack can set `"minAppVersion"` if it needs a newer app.
+- **App updates:** bump `version` in `package.json`, then `npm run release` (with a GitHub token in `GH_TOKEN`) publishes a GitHub Release. Installed apps download it in the background and offer to restart.
+
 ## Layout
 
-- `main.cjs`: Electron main process. Saves data and runs Stockfish (WASM, as a child process speaking UCI).
+- `main.cjs`: Electron main process. Saves data, runs Stockfish (WASM, as a child process speaking UCI), checks for line and app updates, and serves proposals in dev.
 - `preload.cjs`: the bridge the UI uses.
+- `app.config.json`: feedback email and GitHub repo used for updates.
+- `content/`: `openings.json` (the line pack) and `proposals/` (lines awaiting review).
 - `src/`: the UI (chessground board, chess.js rules).
-  - `views/`: home, opening overview, session (Learn/Drill), explore, library/editor.
-  - `srs.js`: scheduling. `repertoire.js`: line index and book lookup. `engine.js`: engine client.
+  - `views/`: home, opening overview, session (Learn/Drill), explore, library/editor, proposals.
+  - `srs.js`: scheduling. `repertoire.js`: line index and book lookup. `engine.js`: engine client. `content.js`: bundled vs downloaded line pack. `feedback.js`, `tour.js`.
+- `tools/`: art generators, icon maker, `content-io.cjs` (proposal merging).
