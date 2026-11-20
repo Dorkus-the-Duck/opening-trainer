@@ -47,8 +47,18 @@ export function libraryView(root) {
         }, 'Delete')),
       o.blurb && h('p', null, o.blurb))),
     h('h2', { class: 'section' }, 'Data'),
-    h('p', { class: 'muted small' }, 'Progress, notes, studies and custom lines are stored in one JSON file on this computer. Back it up by copying that file.'),
-    h('button', { class: 'btn small', onClick: () => window.api.revealData() }, 'Show data file'),
+    ...(window.api.web ? [
+      h('p', { class: 'muted small' }, 'Progress, notes, studies and custom lines are saved in this browser on this device. Download a backup to keep them safe or move them to another device.'),
+      h('div', { class: 'btn-row' },
+        h('button', { class: 'btn small', onClick: () => window.api.revealData() }, 'Download backup'),
+        h('button', { class: 'btn small', onClick: async () => {
+          if (await window.api.importData()) location.reload();
+          else toast('That file is not an Opening Trainer backup');
+        } }, 'Restore backup…')),
+    ] : [
+      h('p', { class: 'muted small' }, 'Progress, notes, studies and custom lines are stored in one JSON file on this computer. Back it up by copying that file.'),
+      h('button', { class: 'btn small', onClick: () => window.api.revealData() }, 'Show data file'),
+    ]),
   ));
 }
 

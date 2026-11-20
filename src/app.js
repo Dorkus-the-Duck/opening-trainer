@@ -104,8 +104,10 @@ window.api.content.onUpdated((pack) => {
   if (currentView === 'home') go('home');
 });
 window.api.onUpdateReady(({ version }) => modal('Update ready',
-  h('p', null, `Version ${version} of Opening Trainer has been downloaded. Restart now to use it, or it installs when you close the app.`),
-  [{ label: 'Later' }, { label: 'Restart now', primary: true, onClick: () => { window.api.restartToUpdate(); } }]));
+  h('p', null, window.api.web
+    ? 'A new version of Opening Trainer with fixes or new lines is ready. Reload now to use it, or it loads next time you open the app.'
+    : `Version ${version} of Opening Trainer has been downloaded. Restart now to use it, or it installs when you close the app.`),
+  [{ label: 'Later' }, { label: window.api.web ? 'Reload now' : 'Restart now', primary: true, onClick: () => { window.api.restartToUpdate(); } }]));
 
 await store.load();
 applyTheme();

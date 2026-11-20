@@ -79,6 +79,7 @@ A variation can list ply indexes in `"intentional"` (e.g. the Fried Liver's deli
 - **Installer:** `npm run dist` builds `release/Opening Trainer Setup <version>.exe`. It isn't code-signed, so Windows shows "Windows protected your PC" the first time; click *More info → Run anyway*.
 - **Line updates:** installed apps download `content/openings.json` from the GitHub repo in `app.config.json` at startup (and every 6 hours) and switch to it when its `version` is newer. Fixing or adding lines only needs a push; no reinstall. A pack can set `"minAppVersion"` if it needs a newer app.
 - **App updates:** bump `version` in `package.json`, then `npm run release` (with a GitHub token in `GH_TOKEN`) publishes a GitHub Release. Installed apps download it in the background and offer to restart.
+- **Web app (iPhone, iPad, Android, any browser):** https://dorkus-the-duck.github.io/opening-trainer/. Every push to `main` rebuilds and redeploys it (`.github/workflows/pages.yml`), so line fixes reach it the same way. On iPhone/iPad, open the link in Safari, tap Share → *Add to Home Screen*; it then runs full-screen and works offline. Progress is stored in that browser; *My Lines → Download backup* moves it between devices. Test locally with `npm run web` (http://localhost:8765).
 
 ## Layout
 
@@ -89,4 +90,5 @@ A variation can list ply indexes in `"intentional"` (e.g. the Fried Liver's deli
 - `src/`: the UI (chessground board, chess.js rules).
   - `views/`: home, opening overview, session (Learn/Drill), explore, library/editor, proposals.
   - `srs.js`: scheduling. `repertoire.js`: line index and book lookup. `engine.js`: engine client. `content.js`: bundled vs downloaded line pack. `feedback.js`, `tour.js`.
+- `src/web/`: the web build's stand-in for the preload bridge (localStorage, Stockfish lite in a Web Worker, service-worker updates). `web/`: its page, manifest and service worker. `build-web.mjs` builds it into `web-dist/`.
 - `tools/`: art generators, icon maker, `content-io.cjs` (proposal merging).

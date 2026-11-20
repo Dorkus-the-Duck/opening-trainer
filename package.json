@@ -11,7 +11,9 @@
     "validate:engine": "node test/validate.mjs --engine",
     "theme": "node tools/gen-norse.mjs && node tools/gen-sets.mjs && electron tools/make-icon.cjs",
     "dist": "node build.mjs && electron-builder --win",
-    "release": "node build.mjs && electron-builder --win --publish always"
+    "release": "node build.mjs && electron-builder --win --publish always",
+    "build:web": "node build-web.mjs",
+    "web": "node build-web.mjs && node tools/serve-web.mjs"
   },
   "keywords": [],
   "author": "Dorkus-the-Duck",
