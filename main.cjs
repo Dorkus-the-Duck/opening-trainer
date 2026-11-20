@@ -18,6 +18,19 @@ ipcMain.handle('data:save', (_e, data) => {
 });
 ipcMain.handle('data:reveal', () => shell.showItemInFolder(dataFile()));
 
+ipcMain.handle('app:info', () => ({ version: app.getVersion(), packaged: app.isPackaged, platform: `${process.platform} ${process.getSystemVersion()}` }));
+ipcMain.handle('app:openExternal', (_e, url) => {
+  if (/^(mailto:|https:\/\/)/.test(url)) return shell.openExternal(url);
+});
+
+// ---------- line proposals (only when running from source) ----------
+// Proposed lines live in content/proposals/. The Proposals screen lets the owner play them
+// through, then approve (merged into content/openings.json) or send back with a note.
+const contentIo = app.isPackaged ? null : require('./tools/content-io.cjs');
+ipcMain.handle('proposals:list', () => (contentIo ? contentIo.listProposals() : null));
+ipcMain.handle('proposals:review', (_e, file, status, note) => contentIo.setReview(file, status, note));
+ipcMain.handle('proposals:approve', (_e, file) => contentIo.approve(file));
+
 // ---------- Stockfish ----------
 // The engine is Stockfish 19 (WASM build from the `stockfish` npm package), run as a
 // child process using Electron's bundled Node. It speaks UCI over stdin/stdout.

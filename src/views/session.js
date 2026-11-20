@@ -8,6 +8,7 @@ import { learnCard, gradeCard, getCard, suggestGrade, GRADES, fmtWait } from '..
 import * as engine from '../engine.js';
 import { store } from '../store.js';
 import { go, renderNav } from '../app.js';
+import { openFeedback } from '../feedback.js';
 
 export function sessionView(root, { mode = 'learn', queue = [] }) {
   if (!queue.length) { go('home'); return; }
@@ -315,6 +316,10 @@ export function sessionView(root, { mode = 'learn', queue = [] }) {
       mode === 'review' && h('button', { class: 'btn small', onClick: hint, title: 'Shortcut: H' }, 'Hint'),
       h('button', { class: 'btn small', onClick: () => startLine() }, 'Restart line'),
       h('button', { class: 'btn small', onClick: openExplore }, 'Explore from here'),
+      h('button', {
+        class: 'btn small ghost', title: 'Report a wrong move or explanation in this line',
+        onClick: () => openFeedback('line', s && [`Line: ${s.v.name} [${s.v.id}], training ${sideName(s.side)}, after ply ${s.ply}`]),
+      }, '⚑ Report a problem'),
       h('label', { class: 'toggle' },
         h('input', {
           type: 'checkbox', checked: engineOn,

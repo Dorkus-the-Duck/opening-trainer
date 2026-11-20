@@ -2,21 +2,29 @@
 // Stockfish considers clearly worse than its best move.
 //   node test/validate.mjs            -> legality only
 //   node test/validate.mjs --engine   -> legality + engine check (a few minutes)
+//   add --proposals to check only the lines in content/proposals/ instead of the repertoire.
+// A variation can list ply indexes in "intentional" (e.g. a deliberate mistake the line punishes);
+// the engine check skips those plies.
 import { Chess } from 'chess.js';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import fs from 'node:fs';
 import { OPENINGS } from '../src/data/openings.js';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const useEngine = process.argv.includes('--engine');
+const proposalsDir = path.join(root, 'content', 'proposals');
+const variations = process.argv.includes('--proposals')
+  ? fs.readdirSync(proposalsDir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(fs.readFileSync(path.join(proposalsDir, f), 'utf8')).variation)
+  : OPENINGS.flatMap((op) => op.variations);
 const DEPTH = 16;
 const THRESHOLD = 70; // centipawns
 
 let failures = 0;
 const lines = [];
-for (const op of OPENINGS) {
-  for (const v of op.variations) {
+{
+  for (const v of variations) {
     const chess = new Chess();
     const fens = [];
     for (const [san, why] of v.moves) {
@@ -53,8 +61,8 @@ if (useEngine) {
   cmd('uci'); cmd('setoption name Hash value 64');
 
   for (const { v, fens } of lines) {
-    if (v.id === 'it-fried-liver') continue; // contains an intentional black inaccuracy (5...Nxd5)
     for (let p = 0; p < v.moves.length; p++) {
+      if (v.intentional?.includes(p)) continue;
       const chess = new Chess(fens[p]);
       const mv = chess.move(v.moves[p][0]);
       const uci = mv.from + mv.to + (mv.promotion || '');

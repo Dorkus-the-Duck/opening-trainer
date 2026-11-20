@@ -9,7 +9,7 @@
     "dev": "node build.mjs --watch",
     "validate": "node test/validate.mjs",
     "validate:engine": "node test/validate.mjs --engine",
-    "theme": "node tools/gen-norse.mjs && electron tools/make-icon.cjs"
+    "theme": "node tools/gen-norse.mjs && node tools/gen-sets.mjs && electron tools/make-icon.cjs"
   },
   "keywords": [],
   "author": "",

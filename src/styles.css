@@ -215,26 +215,61 @@ cg-board square.last-move { background-color: rgba(155, 199, 0, .41); }
 .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 20px); background: #2f3b2a; border: 1px solid var(--accent); padding: 10px 18px; border-radius: 8px; opacity: 0; transition: all .25s; z-index: 200; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-/* ---------- Norse (Lewis chessmen) theme: pieces and board come from themes/norse.css ---------- */
-.set-picker { margin-left: auto; display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12.5px; }
-body.theme-norse .board-wrap {
+/* ---------- piece sets and boards: images come from themes/norse.css and themes/sets.css ---------- */
+/* Coordinates take the colour of the opposite square so they stay readable on every board. */
+.cg-wrap coords { font-size: 11px; font-weight: 700; }
+.cg-wrap coords coord { color: var(--sq-light) !important; text-shadow: none !important; }
+.cg-wrap coords.ranks coord:nth-child(2n), .cg-wrap coords.files coord:nth-child(2n) { color: var(--sq-dark) !important; }
+.cg-wrap.orientation-black coords coord { color: var(--sq-dark) !important; }
+.cg-wrap.orientation-black coords.ranks coord:nth-child(2n),
+.cg-wrap.orientation-black coords.files coord:nth-child(2n) { color: var(--sq-light) !important; }
+
+/* Style picker */
+.nav-style { margin-left: auto; }
+.style-group { margin: 6px 0 14px; }
+.style-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.style-tile { background: var(--panel-2); border: 2px solid var(--line); border-radius: 10px; padding: 8px; cursor: pointer; text-align: center; color: var(--text); font: inherit; font-size: 12.5px; }
+.style-tile:hover { border-color: #4a5160; }
+.style-tile.on { border-color: var(--accent); }
+.style-tile .cg-wrap { position: relative; width: 96px; height: 48px; margin: 0 auto 6px; display: flex; }
+.style-tile .cg-wrap piece { position: static; display: block; width: 48px; height: 48px; background-size: cover; }
+.style-tile .board-swatch { width: 96px; height: 96px; margin: 0 auto 6px; background: var(--board) 0 0 / 200% 200%; background-color: var(--sq-light); border-radius: 4px; }
+.modal { max-height: 90vh; overflow: auto; }
+.modal:has(.style-grid) { width: 760px; }
+
+/* Norse board: knotwork frame and amber highlights */
+body.board-norse .board-wrap {
   padding: calc(var(--bs) * .028);
   background: var(--frame) 0 0 / 22px 22px;
   border-radius: 6px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, .55), inset 0 0 0 2px #120b06, inset 0 0 0 4px #6e5230;
 }
-body.theme-norse .cg-board { box-shadow: 0 0 0 2px #120b06, 0 0 0 3px #b48a4c; }
-body.theme-norse cg-board square.last-move { background-color: rgba(214, 160, 60, .38); }
-body.theme-norse cg-board square.selected { background-color: rgba(214, 160, 60, .55); }
-body.theme-norse cg-board square.move-dest { background: radial-gradient(rgba(58, 30, 12, .5) 21%, transparent 0); }
-body.theme-norse cg-board square.oc.move-dest { background: radial-gradient(transparent 0%, transparent 78%, rgba(58, 30, 12, .45) 79%); }
-body.theme-norse cg-board square.move-dest:hover { background: rgba(214, 160, 60, .35); }
-body.theme-norse cg-board square.check { background: radial-gradient(ellipse at center, rgba(220, 40, 20, .9) 0%, rgba(190, 30, 10, .6) 30%, transparent 75%); }
-body.theme-norse .cg-wrap coords { font-family: Georgia, "Times New Roman", serif; font-weight: 700; }
-body.theme-norse .cg-wrap coords { font-size: 11px; }
-body.theme-norse .cg-wrap coords coord { color: #d9cdae !important; }
-body.theme-norse .cg-wrap coords.ranks coord:nth-child(2n), body.theme-norse .cg-wrap coords.files coord:nth-child(2n) { color: #4f5e60 !important; }
-body.theme-norse .cg-wrap.orientation-black coords coord { color: #4f5e60 !important; }
-body.theme-norse .cg-wrap.orientation-black coords.ranks coord:nth-child(2n),
-body.theme-norse .cg-wrap.orientation-black coords.files coord:nth-child(2n) { color: #d9cdae !important; }
-body.theme-norse .evalbar { border: 2px solid #6e5230; }
+body.board-norse .cg-board { box-shadow: 0 0 0 2px #120b06, 0 0 0 3px #b48a4c; }
+body.board-norse cg-board square.last-move { background-color: rgba(214, 160, 60, .38); }
+body.board-norse cg-board square.selected { background-color: rgba(214, 160, 60, .55); }
+body.board-norse cg-board square.move-dest { background: radial-gradient(rgba(58, 30, 12, .5) 21%, transparent 0); }
+body.board-norse cg-board square.oc.move-dest { background: radial-gradient(transparent 0%, transparent 78%, rgba(58, 30, 12, .45) 79%); }
+body.board-norse cg-board square.move-dest:hover { background: rgba(214, 160, 60, .35); }
+body.board-norse cg-board square.check { background: radial-gradient(ellipse at center, rgba(220, 40, 20, .9) 0%, rgba(190, 30, 10, .6) 30%, transparent 75%); }
+body.board-norse .cg-wrap coords { font-family: Georgia, "Times New Roman", serif; }
+body.board-norse .evalbar { border: 2px solid #6e5230; }
+
+/* proposals review */
+.review-row { cursor: pointer; border-radius: 6px; padding: 0 6px; }
+.review-row:hover { background: var(--panel-2); }
+.review-row.current { background: #2d3a2a; }
+
+/* proposals review */
+.review-row { cursor: pointer; border-radius: 6px; padding: 0 6px; }
+.review-row:hover { background: var(--panel-2); }
+.review-row.current { background: #2d3a2a; }
+
+/* first-run tour */
+.tour-shade { position: fixed; inset: 0; background: rgba(0, 0, 0, .6); z-index: 200; }
+.tour-spot { position: fixed; z-index: 200; border-radius: 10px; box-shadow: 0 0 0 2px var(--accent); pointer-events: none; transition: all .2s; }
+.tour-card { position: fixed; z-index: 201; width: 380px; max-width: calc(100vw - 24px); background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 12px 40px rgba(0, 0, 0, .5); }
+.tour-card h3 { margin: 4px 0 8px; }
+.tour-card p { color: #d3d6dc; line-height: 1.55; margin: 0; }
+.tour-count { color: var(--muted); font-size: 11.5px; letter-spacing: .05em; }
+.tour-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.tour-actions .ghost { margin-right: auto; }

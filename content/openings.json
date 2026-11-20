@@ -407,6 +407,7 @@
         },
         {
           "id": "it-fried-liver",
+          "intentional": [9],
           "name": "Fried Liver Attack (punishing 5...Nxd5)",
           "sides": [
             "w"

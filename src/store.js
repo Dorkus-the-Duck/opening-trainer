@@ -6,7 +6,7 @@ const DEFAULT = {
   studies: [],        // saved explore trees
   custom: [],         // user-made variations
   customOpenings: [], // user-made opening groups
-  settings: { engineInSessions: false, engineDepth: 16, engineSkill: 20, homeSide: 'w', theme: 'norse' },
+  settings: { engineInSessions: false, engineDepth: 16, engineSkill: 20, homeSide: 'w', pieces: 'norse', board: 'norse' },
 };
 
 let saveTimer = null;
@@ -17,6 +17,10 @@ export const store = {
     const loaded = await window.api.loadData();
     if (loaded) {
       this.data = { ...structuredClone(DEFAULT), ...loaded, settings: { ...DEFAULT.settings, ...(loaded.settings || {}) } };
+      // Older versions had a single "theme" setting.
+      const s = this.data.settings;
+      if (s.theme === 'classic' && !loaded.settings.pieces) { s.pieces = 'classic'; s.board = 'brown'; }
+      delete s.theme;
     }
   },
   save() {

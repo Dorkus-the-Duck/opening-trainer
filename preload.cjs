@@ -4,6 +4,13 @@ contextBridge.exposeInMainWorld('api', {
   loadData: () => ipcRenderer.invoke('data:load'),
   saveData: (data) => ipcRenderer.invoke('data:save', data),
   revealData: () => ipcRenderer.invoke('data:reveal'),
+  appInfo: () => ipcRenderer.invoke('app:info'),
+  openExternal: (url) => ipcRenderer.invoke('app:openExternal', url),
+  proposals: {
+    list: () => ipcRenderer.invoke('proposals:list'),
+    review: (file, status, note) => ipcRenderer.invoke('proposals:review', file, status, note),
+    approve: (file) => ipcRenderer.invoke('proposals:approve', file),
+  },
   engine: {
     go: (req) => ipcRenderer.send('engine:go', req),
     stop: () => ipcRenderer.send('engine:stop'),
