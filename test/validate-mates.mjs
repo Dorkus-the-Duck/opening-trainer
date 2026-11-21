@@ -19,6 +19,7 @@ for (const t of MATE_TOPICS) {
     const lastSan = L.moves.at(-1)[0];
     if (lastSan.endsWith('#') && !c.isCheckmate()) fail(`${t.id}: does not end in mate`);
     if (t.id === 'promotion' && !lastSan.includes('=Q')) fail(`${t.id}: does not promote`);
+    if (t.id === 'defend' && !c.isStalemate()) fail(`${t.id}: does not end in stalemate`);
     console.log(`ok ${t.id} (${L.moves.length} plies)`);
   } else {
     for (const [i, p] of L.puzzles.entries()) {

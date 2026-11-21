@@ -203,6 +203,39 @@ export const MATE_TOPICS = [
     },
     practice: { set: 'promotion', label: 'Promote and win' },
   },
+  {
+    id: 'defend',
+    side: 'b',
+    name: 'Defend against king + pawn',
+    pieces: 'Your lone king vs king and pawn',
+    blurb: 'Down to a bare king against king and pawn? Many of these are draws if you know how. Get in front of the pawn, take the opposition, and step straight back when the pawn comes. You play Black.',
+    tips: [
+      'Get your king in front of the pawn, on the square(s) it has to cross. Attacking it from the side or behind rarely works.',
+      'Opposition: when White\'s king comes up, put yours directly opposite it with one square between. Then White\'s king has to give way.',
+      'When the pawn advances, step straight back (in front of it), not sideways.',
+      'If the pawn reaches the 7th with check, go to the square right in front of it. Then White must either give up the pawn or stalemate you.',
+      'Stalemate is your friend: you want it!',
+      'Rook pawns (a- or h-file) are the easiest to hold: just get your king into the corner in front of the pawn.',
+    ],
+    lesson: {
+      kind: 'line',
+      fen: '8/3k4/8/3K4/3P4/8/8/8 w - - 0 1',
+      moves: [
+        ['Ke5', 'White\'s king comes forward, trying to get in front of its pawn.'],
+        ['Ke7', 'Take the opposition: your king directly opposite White\'s, one square between, and it is White to move. White\'s king can\'t come any closer.'],
+        ['d5', 'White pushes the pawn instead.'],
+        ['Kd7', 'Step in front of the pawn again.'],
+        ['d6', 'The pawn comes closer.'],
+        ['Kd8', 'Straight back, right in front of the pawn. (Going to the side, like Kc8 or Ke8, can let White\'s king in.)'],
+        ['Ke6', 'White\'s king supports the pawn.'],
+        ['Ke8', 'Opposition again: your king faces White\'s with one square between, and White has to move.'],
+        ['d7+', 'The pawn reaches the 7th with check.'],
+        ['Kd8', 'Go to the square in front of the pawn. Kf8 would lose at once: d8=Q, and your king can\'t reach the new queen.'],
+        ['Kd6', 'White\'s only way to keep the pawn is to protect it, but now you have no legal move and you are not in check: stalemate. Draw! (Anything else and you take the pawn.)'],
+      ],
+    },
+    practice: { set: 'defend', mode: 'defend', label: 'Hold the draw' },
+  },
 ];
 
 export const LEVELS = ['Mate in 1', 'Short', 'Medium', 'Full'];
@@ -212,6 +245,7 @@ export const LEVEL_NAMES = {
   rook: ['Mate in 1–3', 'Mate in 4–8', 'Mate in 9–13', 'From anywhere'],
   stalemate: ['Mate in 1', 'Mate in 2'],
   promotion: ['Pawn on the 6th–7th', 'Pawn on the 5th', 'Pawn on the 4th', 'Pawn on the 2nd–3rd'],
+  defend: ['Several moves hold', 'Two moves hold', 'Only one move holds'],
 };
 
 export const mateTopic = (id) => MATE_TOPICS.find((t) => t.id === id);

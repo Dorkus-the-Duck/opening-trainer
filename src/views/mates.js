@@ -12,12 +12,13 @@ import { getCard, learnCard, gradeCard, describeDue, fmtWait, GRADES } from '../
 import * as engine from '../engine.js';
 import { store } from '../store.js';
 import { go, renderNav } from '../app.js';
+import { defendPractice } from './mates-defend.js';
 
 const SIDE = { w: 'White', b: 'Black' };
 const NAME = { p: 'pawn', n: 'knight', b: 'bishop', r: 'rook', q: 'queen' };
 export const mateCardId = (id) => `mate:${id}`;
 
-function progress(id) {
+export function progress(id) {
   store.data.mates ||= {};
   return (store.data.mates[id] ||= { level: 0, unlocked: 0, solved: 0, lessonDone: false });
 }
@@ -56,7 +57,7 @@ export function matesView(root) {
 }
 
 // ---------- shared layout ----------
-function layout(root) {
+export function layout(root) {
   const el = {
     board: h('div', { class: 'cg-board' }),
     head: h('div', { class: 'session-head' }),
@@ -80,7 +81,7 @@ function head(el, t, label) {
   fill(el.head,
     h('div', { class: 'session-mode' }, label),
     h('h2', null, t.name),
-    h('div', { class: 'muted' }, `You play White · ${t.pieces}`));
+    h('div', { class: 'muted' }, `You play ${SIDE[t.side || 'w']} · ${t.pieces}`));
 }
 
 const plyLabel = (fen, san) => {
@@ -104,6 +105,7 @@ function quickProblem(fen) {
 export function mateLessonView(root, { id }) {
   const t = mateTopic(id);
   if (!t) { go('mates'); return; }
+  const me = t.side || 'w';
   const el = layout(root);
   head(el, t, 'Checkmates · lesson');
   el.showTips(t);
@@ -114,7 +116,7 @@ export function mateLessonView(root, { id }) {
   function newBoard(fen, onMove) {
     if (board) board.destroy();
     clear(el.board);
-    board = new Board(el.board, { fen, orientation: 'white', movable: 'none', onMove });
+    board = new Board(el.board, { fen, orientation: me === 'w' ? 'white' : 'black', movable: 'none', onMove });
   }
 
   function finish() {
@@ -124,7 +126,9 @@ export function mateLessonView(root, { id }) {
     store.save();
     renderNav();
     el.setPrompt('done', h('b', null, 'Lesson complete ✓'),
-      'Now practice it against Stockfish. It starts with positions one move from mate and builds up as you get them right. This topic is in your Review queue too.',
+      me === 'b'
+        ? 'Now practice it against Stockfish, which plays the pawn side and tries to win. It starts with positions where several moves hold and builds up to positions where only one does. This topic is in your Review queue too.'
+        : 'Now practice it against Stockfish. It starts with positions one move from mate and builds up as you get them right. This topic is in your Review queue too.',
       h('div', { class: 'btn-row' },
         h('button', { class: 'btn primary', onClick: () => go('matePractice', { id }) }, 'Practice now'),
         h('button', { class: 'btn', onClick: () => go('mateLesson', { id }) }, 'Lesson again'),
@@ -145,7 +149,7 @@ export function mateLessonView(root, { id }) {
     });
     fill(el.feed, h('div', { class: 'feed-item intro' }, t.blurb));
     const addFeed = (fen, san, why, who) => el.feed.prepend(h('div', { class: `feed-item ${who}` },
-      h('div', { class: 'feed-head' }, h('span', { class: 'feed-move' }, plyLabel(fen, san)), h('span', { class: 'muted small' }, who === 'opp' ? 'Black' : 'You')),
+      h('div', { class: 'feed-head' }, h('span', { class: 'feed-move' }, plyLabel(fen, san)), h('span', { class: 'muted small' }, who === 'opp' ? SIDE[me === 'w' ? 'b' : 'w'] : 'You')),
       why && h('div', { class: 'feed-why' }, why)));
     function advance(before) {
       const [san, why] = L.moves[ply];
@@ -158,9 +162,9 @@ export function mateLessonView(root, { id }) {
       if (ply >= L.moves.length) { board.setMovable('none'); finish(); return; }
       const [san, why] = L.moves[ply];
       const c = new Chess(board.fen());
-      if (c.turn() === 'b') {
+      if (c.turn() !== me) {
         board.setMovable('none');
-        el.setPrompt('opp', 'Black is moving…');
+        el.setPrompt('opp', `${SIDE[c.turn()]} is moving…`);
         later(() => {
           const before = board.fen();
           board.play(san);
@@ -171,7 +175,7 @@ export function mateLessonView(root, { id }) {
         return;
       }
       const m = c.move(san);
-      board.setMovable('white');
+      board.setMovable(me === 'w' ? 'white' : 'black');
       board.setShapes([arrow(m.from, m.to)]);
       el.setPrompt('you', h('span', null, 'Play ', h('b', null, plyLabel(board.fen(), san)), ' (shown by the arrow).'), why);
     }
@@ -236,6 +240,7 @@ export function mateLessonView(root, { id }) {
 export function matePracticeView(root, { id, review = false, rest = [], fen: startFen, continued = false }) {
   const t = mateTopic(id);
   if (!t) { go('mates'); return; }
+  if (t.practice.mode === 'defend') return defendPractice(root, { id, review, rest }, t);
   const set = positions.sets[t.practice.set];
   const p = progress(id);
   const el = layout(root);

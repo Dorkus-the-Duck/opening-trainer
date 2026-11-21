@@ -1,6 +1,6 @@
 // Generates practice positions for the Checkmates trainer into content/mate-positions.json.
 // Random legal positions, scored by Stockfish (mate distance), sorted into levels.
-//   node tools/gen-mate-positions.mjs [perLevel]
+//   node tools/gen-mate-positions.mjs [perLevel] [--only setName]   (--only keeps the other sets in the file)
 import { Chess } from 'chess.js';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -9,6 +9,7 @@ import fs from 'node:fs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const PER_LEVEL = +process.argv[2] || 20;
+const ONLY = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1] : null;
 const OUT = path.join(root, 'content', 'mate-positions.json');
 
 // ---------- engine ----------
@@ -80,7 +81,7 @@ async function mateDistance(fen, depth = 22) {
 }
 
 // ---------- sets ----------
-const out = { generated: new Date().toISOString().slice(0, 10), sets: {} };
+const out = { generated: new Date().toISOString().slice(0, 10), sets: ONLY && fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')).sets : {} };
 
 async function mateSet(id, pieces, bands) {
   const levels = bands.map(() => []);
@@ -159,11 +160,47 @@ async function promotionSet() {
   console.log('promotion', levels.map((l) => l.length).join('/'), `(${tries} tries)`);
 }
 
-await mateSet('ladder', ['R', 'R'], [[1, 1], [2, 3], [4, 5], [6, 99]]);
-await mateSet('queen', ['Q'], [[1, 2], [3, 5], [6, 8], [9, 99]]);
-await mateSet('rook', ['R'], [[1, 3], [4, 8], [9, 13], [14, 99]]);
-await stalemateSet();
-await promotionSet();
+async function defendSet() {
+  // King and pawn vs king, Black (you) to move, and the position is a draw with correct play.
+  // Levels by how many Black moves keep the draw: several, two, exactly one.
+  const levels = [[], [], []];
+  let tries = 0;
+  while (levels.some((l) => l.length < PER_LEVEL) && tries < 40000) {
+    tries++;
+    const rank = 2 + rnd(5); // pawn on ranks 2-6
+    const { fen: wfen, board } = randomFen(['P'], { pawnRank: rank });
+    const fen = wfen.replace(' w ', ' b ');
+    let c;
+    try { c = new Chess(fen); } catch { continue; }
+    if (c.inCheck() && c.moves().length === 0) continue;
+    // White's king must not be in check either (Black would be the one who just "moved").
+    const wc = new Chess(wfen, { skipValidation: true });
+    if (wc.inCheck()) continue;
+    if (c.moves({ verbose: true }).some((m) => m.captured)) continue; // no free pawn
+    // Black king must be near enough for it to be a real defence, not a race already lost/won.
+    const r = await search(fen, 18);
+    if (!r || r.mate !== undefined || Math.abs(r.cp) > 30) continue; // overall a draw
+    let holds = 0;
+    for (const m of c.moves()) {
+      const x = new Chess(fen); x.move(m);
+      const e = await search(x.fen(), 16); // White to move
+      if (e && e.mate === undefined && e.cp < 100) holds++;
+    }
+    const li = holds >= 3 ? 0 : holds === 2 ? 1 : holds === 1 ? 2 : -1;
+    if (li < 0 || levels[li].length >= PER_LEVEL) continue;
+    levels[li].push({ fen, holds });
+  }
+  out.sets.defend = levels;
+  console.log('defend', levels.map((l) => l.length).join('/'), `(${tries} tries)`);
+}
+
+const want = (n) => !ONLY || ONLY === n;
+if (want('ladder')) await mateSet('ladder', ['R', 'R'], [[1, 1], [2, 3], [4, 5], [6, 99]]);
+if (want('queen')) await mateSet('queen', ['Q'], [[1, 2], [3, 5], [6, 8], [9, 99]]);
+if (want('rook')) await mateSet('rook', ['R'], [[1, 3], [4, 8], [9, 13], [14, 99]]);
+if (want('stalemate')) await stalemateSet();
+if (want('promotion')) await promotionSet();
+if (want('defend')) await defendSet();
 
 fs.writeFileSync(OUT, JSON.stringify(out, null, 0).replace(/\],\[/g, '],\n[').replace(/\},\{/g, '},\n{') + '\n');
 console.log('wrote', path.relative(root, OUT));
