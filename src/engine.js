@@ -38,7 +38,7 @@ export function evaluateMoves(fen, ucis, depth = 14) {
   const scores = {};
   return new Promise((resolve) => analyze(fen, {
     depth, multipv: moves.length, searchmoves: moves,
-    onInfo: (m) => { scores[m.pv[0]] = { cp: m.cp, mate: m.mate, depth: m.depth }; },
+    onInfo: (m) => { scores[m.pv[0]] = { cp: m.cp, mate: m.mate, depth: m.depth, pv: m.pv }; },
     onDone: () => resolve(scores),
   }));
 }

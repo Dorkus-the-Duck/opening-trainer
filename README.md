@@ -42,6 +42,8 @@ Each opening also has an **Overview & plans** page: pawn structures, plans for e
 
 **Drill (spaced repetition).** You play the line from memory. *Hint* (key `H`) highlights the piece, then shows the move. At the end you grade yourself (Again / Hard / Good / Easy); a grade is suggested from your mistakes. Intervals follow an Anki/SM-2 style schedule: 10 minutes for Again, then 1d → 3d → growing. Trouble spots are remembered per line.
 
+**Side lines for mistakes.** A wrong move stays on the board and opens a side line: Stockfish plays out the refutation, and the panel explains it (what the reply attacks or takes, material lost, the eval change, Blunder/Mistake/Inaccuracy/Playable). Step through it with ◀ ▶ or the arrow keys, then *Back to the line* to try again. In Drill the line's move stays hidden on the first mistake (just the piece is highlighted) and is shown on the second. Logic: `src/mistake.js`.
+
 **Explore & Study.**
 - A free board with a move tree, including side variations (Promote / Delete). Navigate with ← → Home End; press F to flip.
 - Stockfish analysis: top 3 lines plus an eval bar. Click a line to play it.

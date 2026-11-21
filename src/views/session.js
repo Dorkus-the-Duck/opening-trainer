@@ -1,6 +1,7 @@
 // Learn / Drill session over a queue of { varId, side }.
 // Learn: the trainer shows each of your moves (arrow + explanation) and you play it.
-// Drill: you play the line from memory; mistakes get an engine comparison, then you grade it.
+// Drill: you play the line from memory, then you grade it.
+// A wrong move stays on the board and opens a side line: the engine's refutation, played out with an explanation.
 import { h, fill, sideName, sideIcon, clear } from '../ui.js';
 import { Board, arrow, circle } from '../board.js';
 import { getVariation, bookMoves, fenKey } from '../repertoire.js';
@@ -9,6 +10,8 @@ import * as engine from '../engine.js';
 import { store } from '../store.js';
 import { go, renderNav } from '../app.js';
 import { openFeedback } from '../feedback.js';
+import { explainMistake, sanLine } from '../mistake.js';
+import { Chess } from 'chess.js';
 
 export function sessionView(root, { mode = 'learn', queue = [] }) {
   if (!queue.length) { go('home'); return; }
@@ -39,6 +42,12 @@ export function sessionView(root, { mode = 'learn', queue = [] }) {
 
   const keyHandler = (e) => {
     if (e.target.closest('input,textarea')) return;
+    if (s?.sl) {
+      if (e.key === 'ArrowLeft') sideGo(s.sl.idx - 1);
+      else if (e.key === 'ArrowRight') sideGo(s.sl.idx + 1);
+      else if (e.key === 'Enter' || e.key === 'Escape') backToLine();
+      return;
+    }
     if (e.key === 'h' && s && !s.done) hint();
   };
   window.addEventListener('keydown', keyHandler);
@@ -151,7 +160,7 @@ export function sessionView(root, { mode = 'learn', queue = [] }) {
   }
 
   function onMove(move) {
-    if (!s || s.done) return false;
+    if (!s || s.done || s.sl) return false;
     const p = s.v.plies[s.ply];
     if (!p || p.color !== s.side) return false;
     if (move.san === p.san) {
@@ -162,33 +171,104 @@ export function sessionView(root, { mode = 'learn', queue = [] }) {
       later(() => { analysePosition(); step(); }, 60);
       return true;
     }
-    // wrong move
+    // Wrong move: leave it on the board and show the side line it leads to.
     s.wrongHere++;
     s.mistakes++;
     s.plyMiss[s.ply] = true;
-    const fenBefore = p.fenBefore;
-    const alt = bookMoves(fenBefore).find((b) => b.san === move.san);
-    const msg = h('div', { class: 'wrong' },
-      h('div', null, h('b', null, `${move.san} isn't the move in this line.`),
-        alt ? ` It is book in ${alt.lines.map((l) => l.name).join(', ')}, but here we're learning ${p.san}.` : ''),
-      h('div', { class: 'compare muted small' }, 'Asking the engine how it compares…'));
-    setPrompt('wrong', msg);
+    const prevLast = board.lastMove;
+    later(() => startSideLine(move, p, prevLast), 0);
+    return true;
+  }
+
+  // ---------- side line after a wrong move ----------
+  function startSideLine(move, p, prevLast) {
+    const token = {};
+    const reveal = mode === 'learn' || s.wrongHere >= 2;
+    const sl = s.sl = { token, p, move, prevLast, reveal, sans: [move.san], idx: 1, info: null };
+    board.setMovable('none');
+    board.setShapes([]);
+    renderSideLine();
     const yourUci = move.from + move.to + (move.promotion || '');
-    engine.evaluateMoves(fenBefore, [yourUci, p.uci], 14).then((sc) => {
-      const cmp = msg.querySelector('.compare');
-      if (!cmp || !sc[yourUci] || !sc[p.uci]) return;
-      const diff = (engine.scoreValue(sc[p.uci]) - engine.scoreValue(sc[yourUci])) / 100;
-      const fmt = (x) => engine.fmtScore(x); // mover's point of view
-      cmp.textContent = `Engine, from your side: your ${move.san} ${fmt(sc[yourUci])} vs ${p.san} ${fmt(sc[p.uci])}. ` +
-        (diff > 0.6 ? 'Yours is clearly worse.' : diff > 0.2 ? 'Yours is a bit worse.' : 'About equal for the engine, but stick to the line so you know the plans that follow.');
-      analysePosition();
+    engine.evaluateMoves(p.fenBefore, [yourUci, p.uci], 14).then((sc) => {
+      if (s.sl !== sl) return;
+      const yours = sc[yourUci];
+      sl.info = explainMistake({
+        fenBefore: p.fenBefore, you: move, pv: yours?.pv || [yourUci],
+        yours, line: sc[p.uci], lineSan: reveal ? p.san : "the line's move",
+      });
+      sl.sans = sl.info.sans;
+      feed.prepend(h('div', { class: 'feed-item sideline' },
+        h('div', { class: 'feed-head' },
+          h('span', { class: 'feed-move' }, plyLabel({ color: s.side, san: move.san + sl.info.symbol }, s.ply)),
+          h('span', { class: 'muted small' }, `Side line · ${sl.info.verdict}`)),
+        h('div', { class: 'feed-why' }, sanLine(p.fenBefore, sl.sans), sl.info.reasons[0] ? ' · ' + sl.info.reasons[0] : '')));
+      renderSideLine();
+      if (sl.sans.length > 1) later(() => { if (s.sl === sl) sideGo(2); }, 650);
+      else analysePosition();
     });
-    if (mode === 'learn' || s.wrongHere >= 2) board.setShapes([arrow(p.from, p.to)]);
-    else later(() => board.setShapes([circle(p.from, 'yellow')]), 0);
-    return false;
+  }
+
+  function sideGo(i) {
+    const sl = s.sl;
+    if (!sl) return;
+    sl.idx = Math.max(1, Math.min(sl.sans.length, i));
+    const c = new Chess(sl.p.fenBefore);
+    let last;
+    for (const san of sl.sans.slice(0, sl.idx)) last = c.move(san);
+    board.setFen(c.fen(), [last.from, last.to]);
+    const nxt = sl.idx < sl.sans.length ? new Chess(c.fen()).move(sl.sans[sl.idx]) : null;
+    board.setShapes(nxt ? [arrow(nxt.from, nxt.to, nxt.color === s.side ? 'blue' : 'red')] : []);
+    renderSideLine();
+    if (sl.info) analysePosition();
+  }
+
+  function backToLine() {
+    const sl = s.sl;
+    if (!sl) return;
+    s.sl = null;
+    const { p } = sl;
+    board.setFen(p.fenBefore, sl.prevLast);
+    board.setMovable(s.side === 'w' ? 'white' : 'black');
+    if (sl.reveal) {
+      board.setShapes([arrow(p.from, p.to)]);
+      setPrompt('you', h('span', null, 'Back on the line. Play ', h('b', null, plyLabel(p, s.ply)), '.'), p.why);
+    } else {
+      board.setShapes([circle(p.from, 'yellow')]);
+      setPrompt('you', 'Back on the line. Try again: the highlighted piece moves.');
+    }
+    showNote();
+    analysePosition();
+  }
+
+  function renderSideLine() {
+    const sl = s.sl;
+    const { p, move, info, reveal } = sl;
+    const alt = bookMoves(p.fenBefore).find((b) => b.san === move.san);
+    const label = plyLabel({ color: s.side, san: move.san + (info?.symbol || '') }, s.ply);
+    prompt.className = 'prompt ' + (info && info.grade === 'Playable' ? 'opp' : 'wrong');
+    fill(prompt,
+      h('div', { class: 'prompt-main' }, h('b', null, `Side line: ${label}`), info ? h('span', { class: 'muted' }, ` · ${info.verdict}`) : ''),
+      alt && h('div', { class: 'small muted' }, `${move.san} is book in ${alt.lines.map((l) => l.name).join(', ')}, but this line goes another way.`),
+      info
+        ? h('ul', { class: 'sl-reasons' }, info.reasons.map((r) => h('li', null, r)))
+        : h('div', { class: 'muted small' }, 'Asking the engine what goes wrong…'),
+      info && sl.sans.length > 1 && h('div', { class: 'sl-moves' }, sanLine(p.fenBefore, sl.sans).split(' ').reduce((out, tok) => {
+        // keep move numbers attached to their move
+        if (/^d+.+$/.test(tok)) { out.push(tok); return out; }
+        const m = tok.match(/^(d+.+)?(.*)$/);
+        const i = out.filter((x) => typeof x !== 'string').length + 1;
+        out.push(h('span', { class: 'mv' + (i === sl.idx ? ' current' : ''), onClick: () => sideGo(i) }, (m[1] || '') + m[2]));
+        return out;
+      }, []).flatMap((x) => [x, ' '])),
+      reveal && h('div', { class: 'prompt-sub' }, h('b', null, `The line plays ${p.san}. `), p.why || ''),
+      h('div', { class: 'btn-row' },
+        info && sl.sans.length > 1 && h('button', { class: 'btn small', disabled: sl.idx <= 1, onClick: () => sideGo(sl.idx - 1), title: 'Left arrow' }, '◀'),
+        info && sl.sans.length > 1 && h('button', { class: 'btn small', disabled: sl.idx >= sl.sans.length, onClick: () => sideGo(sl.idx + 1), title: 'Right arrow' }, '▶'),
+        h('button', { class: 'btn primary small', onClick: backToLine, title: 'Enter' }, '↩ Back to the line')));
   }
 
   function hint() {
+    if (s.sl) return;
     const p = s.v.plies[s.ply];
     if (!p || p.color !== s.side) return;
     s.hints++;

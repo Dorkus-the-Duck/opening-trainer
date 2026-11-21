@@ -321,3 +321,9 @@ body.web #main { padding-bottom: env(safe-area-inset-bottom); }
   /* iOS zooms into inputs smaller than 16px */
   .input, .select, .note-input { font-size: 16px; }
 }
+
+/* side line after a wrong move */
+.sl-reasons { margin: 8px 0 4px; padding-left: 18px; color: #cfd3da; line-height: 1.55; }
+.sl-reasons li { margin: 2px 0; }
+.sl-moves { font-family: Consolas, monospace; font-size: 13px; line-height: 1.9; margin: 4px 0; }
+.feed-item.sideline { border-left: 3px solid var(--bad); }
