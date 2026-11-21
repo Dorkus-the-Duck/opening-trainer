@@ -1,8 +1,15 @@
 # Opening Trainer
 
-A desktop chess app (Electron) that teaches openings move by move, explains why each move is played, and uses spaced repetition so the lines stick. Stockfish 19 is built in.
+A chess app that teaches openings move by move, explains why each move is played, and uses spaced repetition so the lines stick. Stockfish 19 is built in.
 
-## Run it
+## Get it
+
+- **iPhone, iPad, Android or any browser:** open **https://dorkus-the-duck.github.io/opening-trainer/**. On iPhone/iPad, open it in Safari, tap Share → **Add to Home Screen**, and it runs full-screen like an app, even offline.
+- **Windows:** download `Opening-Trainer-Setup-<version>.exe` from the [latest release](https://github.com/Dorkus-the-Duck/opening-trainer/releases/latest) and run it. Windows may say "Windows protected your PC" (the app isn't code-signed); click *More info → Run anyway*.
+
+Both update themselves with new lines and fixes.
+
+## Run it from source
 
 ```
 npm install
