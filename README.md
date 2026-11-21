@@ -66,20 +66,10 @@ Pick them under **🎨 Style** in the top bar.
 
 The art is generated in `tools/gen-norse.mjs` and `tools/gen-sets.mjs`; run `npm run theme` after editing them (`node tools/gen-sets.mjs --preview out.html` writes a preview sheet).
 
-## Adding and fixing lines
+## Adding lines
 
 The built-in lines live in `content/openings.json` (one `[san, why]` pair per move). New or changed lines go through review first:
 
-1. Claude writes a proposal to `content/proposals/<name>.json` (the variation plus notes on how it was checked) and runs `node test/validate.mjs --proposals --engine`.
-2. In the app (run from source), the **Proposals** tab lists them. Play each one through: changed moves are marked, the engine evaluates every position. Then **Approve** (merged into `content/openings.json`, pack version bumped) or **Request changes** with a note, which is saved into the proposal file.
-3. Claude commits approved lines, and pushing to GitHub ships them to everyone (see below).
-
-```
-npm run validate          # every move legal, every move explained
-npm run validate:engine   # also flags moves Stockfish thinks lose > 0.7 pawns (a few minutes)
-```
-
-A variation can list ply indexes in `"intentional"` (e.g. the Fried Liver's deliberate 5...Nxd5) so the engine check skips them.
 
 ## Sharing and updates
 
