@@ -6,6 +6,7 @@ const DEFAULT = {
   studies: [],        // saved explore trees
   custom: [],         // user-made variations
   customOpenings: [], // user-made opening groups
+  mates: {},          // checkmates trainer progress per topic
   settings: { engineInSessions: false, engineDepth: 16, engineSkill: 20, homeSide: 'w', pieces: 'norse', board: 'norse' },
 };
 

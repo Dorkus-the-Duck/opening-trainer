@@ -13,7 +13,9 @@
     "dist": "node build.mjs && electron-builder --win",
     "release": "node build.mjs && electron-builder --win --publish always",
     "build:web": "node build-web.mjs",
-    "web": "node build-web.mjs && node tools/serve-web.mjs"
+    "web": "node build-web.mjs && node tools/serve-web.mjs",
+    "validate:mates": "node test/validate-mates.mjs",
+    "mates:positions": "node tools/gen-mate-positions.mjs 25"
   },
   "keywords": [],
   "author": "Dorkus-the-Duck",

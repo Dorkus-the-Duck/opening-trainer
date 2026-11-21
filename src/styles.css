@@ -327,3 +327,10 @@ body.web #main { padding-bottom: env(safe-area-inset-bottom); }
 .sl-reasons li { margin: 2px 0; }
 .sl-moves { font-family: Consolas, monospace; font-size: 13px; line-height: 1.9; margin: 4px 0; }
 .feed-item.sideline { border-left: 3px solid var(--bad); }
+
+/* checkmates trainer */
+.mate-levels { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+.level-chip { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); border-radius: 14px; padding: 3px 11px; font: inherit; font-size: 12px; cursor: pointer; }
+.level-chip:hover:not(:disabled) { border-color: var(--accent); }
+.level-chip.on { border-color: var(--accent); background: #2b3b26; }
+.level-chip.locked { opacity: .45; cursor: default; }

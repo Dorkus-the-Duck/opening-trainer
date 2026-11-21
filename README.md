@@ -44,6 +44,8 @@ Each opening also has an **Overview & plans** page: pawn structures, plans for e
 
 **Side lines for mistakes.** A wrong move stays on the board and opens a side line: Stockfish plays out the refutation, and the panel explains it (what the reply attacks or takes, material lost, the eval change, Blunder/Mistake/Inaccuracy/Playable). Step through it with ◀ ▶ or the arrow keys, then *Back to the line* to try again. In Drill the line's move stays hidden on the first mistake (just the piece is highlighted) and is shown on the second. Logic: `src/mistake.js`.
 
+**Checkmates.** A beginner endgame trainer (♛ Checkmates in the top bar): ladder mate, king + queen, king + rook, "Don't stalemate!" traps, and promoting a pawn. Each has a guided lesson, then practice against Stockfish from random positions in four levels (mate-in-1 up to a full mate); a clean solve unlocks the next level. Stalemates and hanging pieces are caught with a take-back; in the pawn drill the engine also flags moves that throw the win away. After promoting you can carry on and mate with the new queen. Practiced topics join the normal Review queue (cards `mate:<topic>|w`, graded automatically). Lessons are in `src/data/mates.js`; practice positions in `content/mate-positions.json` come from `npm run mates:positions`; `npm run validate:mates` checks both.
+
 **Explore & Study.**
 - A free board with a move tree, including side variations (Promote / Delete). Navigate with ← → Home End; press F to flip.
 - Stockfish analysis: top 3 lines plus an eval bar. Click a line to play it.
@@ -87,7 +89,7 @@ The built-in lines live in `content/openings.json` (one `[san, why]` pair per mo
 - `app.config.json`: feedback email and GitHub repo used for updates.
 - `content/`: `openings.json` (the line pack) and `proposals/` (lines awaiting review).
 - `src/`: the UI (chessground board, chess.js rules).
-  - `views/`: home, opening overview, session (Learn/Drill), explore, library/editor, proposals.
+  - `views/`: home, opening overview, session (Learn/Drill), explore, library/editor, proposals, mates (Checkmates).
   - `srs.js`: scheduling. `repertoire.js`: line index and book lookup. `engine.js`: engine client. `content.js`: bundled vs downloaded line pack. `feedback.js`, `tour.js`.
 - `src/web/`: the web build's stand-in for the preload bridge (localStorage, Stockfish lite in a Web Worker, service-worker updates). `web/`: its page, manifest and service worker. `build-web.mjs` builds it into `web-dist/`.
 - `tools/`: art generators, icon maker, `content-io.cjs` (proposal merging).

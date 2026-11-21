@@ -16,10 +16,11 @@ import { sessionView } from './views/session.js';
 import { exploreView } from './views/explore.js';
 import { libraryView, editorView } from './views/library.js';
 import { proposalsView } from './views/proposals.js';
+import { matesView, mateLessonView, matePracticeView } from './views/mates.js';
 import { openFeedback } from './feedback.js';
 import { startTour } from './tour.js';
 
-const VIEWS = { home: homeView, opening: openingView, session: sessionView, explore: exploreView, library: libraryView, editor: editorView, proposals: proposalsView };
+const VIEWS = { home: homeView, opening: openingView, session: sessionView, explore: exploreView, library: libraryView, editor: editorView, proposals: proposalsView, mates: matesView, mateLesson: mateLessonView, matePractice: matePracticeView };
 
 let cleanup = null;
 let currentView = 'home';
@@ -28,6 +29,12 @@ const main = document.getElementById('main');
 const nav = document.getElementById('nav');
 
 export function go(view, params = {}) {
+  // Checkmate topics in the review queue are practiced on their own screen.
+  const first = view === 'session' && params.queue?.[0];
+  if (first && first.varId.startsWith('mate:')) {
+    view = 'matePractice';
+    params = { id: first.varId.slice(5), review: true, rest: params.queue.slice(1) };
+  }
   if (cleanup) { try { cleanup(); } catch (e) { console.error(e); } }
   cleanup = null;
   engine.stop();
@@ -59,6 +66,7 @@ export function renderNav() {
       onClick: () => go('session', { mode: 'review', queue: dueCards() }),
     }, 'Review', h('span', { class: 'badge' + (due ? ' hot' : '') }, String(due))),
     item('explore', 'Explore & Study'),
+    item('mates', '♛ Checkmates'),
     item('library', 'My Lines'),
     pendingProposals !== null && item('proposals', 'Proposals', h('span', { class: 'badge' + (pendingProposals ? ' hot' : '') }, String(pendingProposals))),
     h('button', { class: 'nav-item nav-style', 'data-tour': 'style', onClick: stylePicker }, '🎨 Style'),

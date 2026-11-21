@@ -85,6 +85,7 @@ export function sessionView(root, { mode = 'learn', queue = [] }) {
   function startLine() {
     clearTimers();
     const item = queue[qi];
+    if (item.varId.startsWith('mate:')) { later(() => go('session', { mode, queue: queue.slice(qi) }), 0); return; }
     const v = getVariation(item.varId);
     if (!v) { next(); return; }
     s = {
